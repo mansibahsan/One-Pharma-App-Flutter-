@@ -14,7 +14,7 @@ class AddAddressScreen extends ConsumerStatefulWidget {
 }
 
 class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
-  final _nameController = TextEditingController(text: 'Heluz Juan');
+  final _nameController = TextEditingController(text: 'Hera Rahman');
   final _phoneController = TextEditingController(text: '0171-8963563');
   final _streetController = TextEditingController();
   final _areaController = TextEditingController();
@@ -78,7 +78,7 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
           ),
 
           const SizedBox(height: 20),
-          _buildTextField('Recipient Full Name', _nameController, 'e.g. Heluz Juan'),
+          _buildTextField('Recipient Full Name', _nameController, 'e.g. Hera Rahman'),
           const SizedBox(height: 16),
           _buildTextField('Contact Phone', _phoneController, 'e.g. 0171-8963563'),
           const SizedBox(height: 16),

@@ -61,6 +61,10 @@ class OrderNotifier extends StateNotifier<List<OrderModel>> {
     state = [newOrder, ...state];
     return newId;
   }
+
+  void setOrders(List<OrderModel> orders) {
+    state = orders;
+  }
 }
 
 final ordersProvider =

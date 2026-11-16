@@ -31,9 +31,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   void initState() {
     super.initState();
     final user = ref.read(authProvider).user;
-    _nameController = TextEditingController(text: user?.name ?? 'Heluz Juan');
-    _phoneController = TextEditingController(text: user?.phone ?? '0569 - 8963 - 5632');
-    _emailController = TextEditingController(text: user?.email ?? 'deom123@gmail.com');
+    _nameController = TextEditingController(text: user?.name ?? 'Hera Rahman');
+    _phoneController = TextEditingController(text: user?.phone ?? '+880 1711-896356');
+    _emailController = TextEditingController(text: user?.email ?? 'hera.rahman@onepharma.demo');
     _addressController = TextEditingController(
       text: user?.address ?? 'House # 60 , Sector #12, Road# 20\nDhaka-1230',
     );
@@ -163,7 +163,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               const SizedBox(height: 12),
 
               Text(
-                user?.name ?? 'Heluz Juan',
+                user?.name ?? 'Hera Rahman',
                 style: AppTextStyles.h2.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 2),

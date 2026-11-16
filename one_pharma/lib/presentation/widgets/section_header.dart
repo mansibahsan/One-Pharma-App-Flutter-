@@ -22,9 +22,13 @@ class SectionHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            title,
-            style: AppTextStyles.h3.copyWith(fontSize: 17),
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.h3.copyWith(fontSize: 17),
+            ),
           ),
           if (onAction != null)
             InkWell(

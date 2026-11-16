@@ -73,7 +73,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/orders',
-      builder: (context, state) => const MainShellScreen(initialTab: 3),
+      builder: (context, state) => const MainShellScreen(initialTab: 4),
     ),
     GoRoute(
       path: '/search',

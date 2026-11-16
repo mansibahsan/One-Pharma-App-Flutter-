@@ -5,6 +5,7 @@ import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/providers/prescription_provider.dart';
 import 'package:one_pharma/providers/cart_provider.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 
 class PrescriptionDetailScreen extends ConsumerWidget {
   final String prescriptionId;
@@ -152,7 +153,21 @@ class PrescriptionDetailScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.medication_rounded, color: AppColors.primary, size: 24),
+                        Container(
+                          width: 42,
+                          height: 42,
+                          decoration: BoxDecoration(
+                            color: AppColors.scaffoldBackground,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ProductImage(
+                            imagePath: m.imageUrl,
+                            width: 42,
+                            height: 42,
+                            borderRadius: BorderRadius.circular(10),
+                            fallbackSize: 28,
+                          ),
+                        ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(

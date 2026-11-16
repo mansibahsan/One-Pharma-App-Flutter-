@@ -46,7 +46,7 @@ class _PharmacistsScreenState extends ConsumerState<PharmacistsScreen> {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Row(
-              children: ['All', 'Clinical Pharmacist', 'Drug Safety', 'Pediatric'].map((cat) {
+              children: ['All', 'Clinical', 'Community', 'Geriatric'].map((cat) {
                 final isSel = _selectedFilter == cat;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
@@ -209,7 +209,7 @@ class _PharmacistsScreenState extends ConsumerState<PharmacistsScreen> {
                   ],
                 ),
                 Text(
-                  '${doc.consultationFee.toStringAsFixed(0)} / session',
+                  '\$${doc.consultationFee.toStringAsFixed(0)} / session',
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,

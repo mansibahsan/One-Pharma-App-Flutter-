@@ -5,7 +5,7 @@ import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/data/models/order_model.dart';
 import 'package:one_pharma/providers/order_provider.dart';
-import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 
 class OrderTrackingScreen extends ConsumerWidget {
   const OrderTrackingScreen({super.key});
@@ -111,27 +111,12 @@ class OrderTrackingScreen extends ConsumerWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: ClipRRect(
+                        child: ProductImage(
+                          imagePath: item.product.imageUrl,
+                          width: 48,
+                          height: 48,
                           borderRadius: BorderRadius.circular(10),
-                          child: item.product.imageUrl != null && item.product.imageUrl!.isNotEmpty
-                              ? Image.network(
-                                  item.product.imageUrl!,
-                                  width: 48,
-                                  height: 48,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (_, _, _) => Center(
-                                    child: MedicineBottleArt(
-                                      size: 34,
-                                      primaryColor: AppColors.primary,
-                                    ),
-                                  ),
-                                )
-                              : Center(
-                                  child: MedicineBottleArt(
-                                    size: 34,
-                                    primaryColor: AppColors.primary,
-                                  ),
-                                ),
+                          fallbackSize: 34,
                         ),
                       ),
                       const SizedBox(width: 12),

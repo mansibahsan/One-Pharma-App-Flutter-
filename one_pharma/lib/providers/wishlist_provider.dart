@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/product_model.dart';
-import '../data/mock/mock_data.dart';
 
 class WishlistNotifier extends StateNotifier<List<ProductModel>> {
-  WishlistNotifier() : super(MockData.initialWishlist);
+  WishlistNotifier() : super(const []);
 
   void toggleWishlist(ProductModel product) {
     final exists = state.any((p) => p.id == product.id);

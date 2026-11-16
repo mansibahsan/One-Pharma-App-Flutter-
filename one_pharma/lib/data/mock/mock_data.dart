@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import '../models/address_model.dart';
 import '../models/prescription_model.dart';
 import '../models/reminder_model.dart';
 import '../models/pharmacist_model.dart';
-import 'package:flutter/material.dart';
 import '../models/product_model.dart';
 import '../models/category_model.dart';
 import '../models/cart_item_model.dart';
@@ -17,11 +17,11 @@ class MockData {
 
   static const UserModel currentUser = UserModel(
     id: 'user_1',
-    name: 'Mansib Ahsan',
-    email: 'deom123@gmail.com',
-    phone: '0569 - 8963 - 5632',
-    address: 'House # 60 , Sector #12, Road# 20\nDhaka-1230',
-    role: 'Pro User, Bangladesh',
+    name: 'Hera Rahman',
+    email: 'hera.rahman@onepharma.demo',
+    phone: '+880 1711-896356',
+    address: 'House #28, Road #30, Sector #10\nUttara, Dhaka-1230',
+    role: 'Verified Patient • Dhaka, BD',
   );
 
   static const List<CategoryModel> categories = [
@@ -29,255 +29,411 @@ class MockData {
       id: 'cat_all',
       name: 'All',
       icon: Icons.grid_view_rounded,
-      itemCount: 48,
+      itemCount: 12,
       tintColor: Color(0xFFFF4858),
     ),
     CategoryModel(
-      id: 'cat_ayurveda',
-      name: 'Ayurveda',
-      icon: Icons.spa_rounded,
-      itemCount: 16,
+      id: 'cat_tablets',
+      name: 'Tablets',
+      icon: Icons.medication_rounded,
+      itemCount: 2,
+      tintColor: Color(0xFF2E90FA),
+    ),
+    CategoryModel(
+      id: 'cat_syrups',
+      name: 'Syrups',
+      icon: Icons.medication_liquid_rounded,
+      itemCount: 2,
+      tintColor: Color(0xFFF79009),
+    ),
+    CategoryModel(
+      id: 'cat_injections',
+      name: 'Injections',
+      icon: Icons.vaccines_rounded,
+      itemCount: 1,
+      tintColor: Color(0xFF7A5AF8),
+    ),
+    CategoryModel(
+      id: 'cat_saline',
+      name: 'Saline & IV',
+      icon: Icons.water_drop_rounded,
+      itemCount: 2,
+      tintColor: Color(0xFF0EA5E9),
+    ),
+    CategoryModel(
+      id: 'cat_antiseptic',
+      name: 'Antiseptic',
+      icon: Icons.sanitizer_rounded,
+      itemCount: 1,
+      tintColor: Color(0xFF0D9488),
+    ),
+    CategoryModel(
+      id: 'cat_ppe',
+      name: 'Safety & PPE',
+      icon: Icons.masks_rounded,
+      itemCount: 2,
       tintColor: Color(0xFF12B76A),
     ),
     CategoryModel(
       id: 'cat_diabetes',
       name: 'Diabetes',
       icon: Icons.bloodtype_rounded,
-      itemCount: 22,
-      tintColor: Color(0xFF2E90FA),
+      itemCount: 1,
+      tintColor: Color(0xFF2563EB),
     ),
     CategoryModel(
-      id: 'cat_supplements',
-      name: 'Suplements',
-      icon: Icons.medication_rounded,
-      itemCount: 35,
-      tintColor: Color(0xFFF79009),
-    ),
-    CategoryModel(
-      id: 'cat_vitamin',
-      name: 'Vitamin',
+      id: 'cat_vitamins',
+      name: 'Vitamins',
       icon: Icons.wb_sunny_rounded,
-      itemCount: 29,
+      itemCount: 1,
       tintColor: Color(0xFFEE46BC),
-    ),
-    CategoryModel(
-      id: 'cat_baby',
-      name: 'Baby Care',
-      icon: Icons.child_care_rounded,
-      itemCount: 14,
-      tintColor: Color(0xFF7A5AF8),
     ),
   ];
 
   static const List<ProductModel> products = [
     ProductModel(
-      id: 'prod_plastic_oi',
-      name: 'Plastic oi',
-      genericName: 'Cetirizine Hydrochloride',
-      brand: 'Bescikos Cox',
-      category: 'Suplements',
-      selectedStrength: '100mg',
-      availableStrengths: ['50mg', '100mg', '500mg'],
-      price: 38.00,
-      originalPrice: 56.00,
-      discountPercent: 45,
-      rating: 5.0,
-      reviewCount: 128,
+      id: 'prod_napa_extend',
+      name: 'Napa Extend',
+      genericName: 'Paracetamol Prolonged-Release',
+      brand: 'Beximco Pharma',
+      category: 'Tablets',
+      selectedStrength: '665mg',
+      availableStrengths: ['500mg', '665mg'],
+      price: 4.50,
+      originalPrice: 6.00,
+      discountPercent: 25,
+      rating: 4.9,
+      reviewCount: 342,
+      isPrescriptionRequired: false,
+      description:
+          'Extended-release Paracetamol analgesic and antipyretic formulated for sustained 8-hour relief from fever, headache, muscle ache, and joint pain.',
+      indications:
+          '• Adults & children 12+: 1–2 tablets every 8 hours.\n• Do not exceed 6 tablets in 24 hours.\n• Swallow whole with water; do not crush.',
+      precautions:
+          'Avoid concurrent use with other paracetamol-containing products. Consult a doctor if liver impairment is present.',
+      packagingInfo: 'Box of 20 tablets (2x10 blister)',
+      iconIndex: 0,
+      imageUrl: 'assets/images/products/paracetamol_tablets.jpg',
+      images: [
+        'assets/images/products/paracetamol_tablets.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_cough_syrup',
+      name: 'Tusca Plus Syrup',
+      genericName: 'Dextromethorphan & Guaifenesin',
+      brand: 'Square Pharma',
+      category: 'Syrups',
+      selectedStrength: '120ml',
+      availableStrengths: ['100ml', '120ml', '200ml'],
+      price: 7.20,
+      originalPrice: 9.00,
+      discountPercent: 20,
+      rating: 4.8,
+      reviewCount: 194,
+      isPrescriptionRequired: false,
+      description:
+          'Dual-action cough suppressant and expectorant syrup that calms dry, irritating coughs while loosening stubborn chest mucus.',
+      indications:
+          '• Shake well before each use.\n• Adults: 10ml every 6–8 hours using the dosing cup.\n• Drink warm water afterwards.',
+      precautions: 'May cause mild drowsiness. Store below 25°C away from direct sunlight.',
+      packagingInfo: '120ml Amber Bottle + Dosing Cup',
+      iconIndex: 1,
+      imageUrl: 'assets/images/products/cough_syrup.jpg',
+      images: [
+        'assets/images/products/cough_syrup.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_ceftriaxone_inj',
+      name: 'Ceftriaxone IV/IM',
+      genericName: 'Ceftriaxone Sodium Sterile Powder',
+      brand: 'Incepta Pharma',
+      category: 'Injections',
+      selectedStrength: '1g Vial',
+      availableStrengths: ['500mg', '1g Vial', '2g Vial'],
+      price: 14.50,
+      originalPrice: 18.00,
+      discountPercent: 19,
+      rating: 4.9,
+      reviewCount: 112,
       isPrescriptionRequired: true,
       description:
-          'Plastic oi is a prescription medicine & a preparation of Cetirizine, which is a potent antihistamine with low potential for drowsiness at pharmacologically active doses.',
+          'Third-generation broad-spectrum cephalosporin antibiotic injection indicated for severe respiratory, urinary, and systemic bacterial infections.',
       indications:
-          '• Exactly as your doctor has told you\n• Recommended for seasonal allergic rhinitis, perennial allergic rhinitis, and urticaria.\n• Take with or without food as advised.',
+          '• Administered intravenously or intramuscularly by a qualified healthcare professional.\n• Reconstitute with sterile water for injection prior to use.',
       precautions:
-          'Do not exceed recommended dose. Consult your physician if pregnant or breast-feeding.',
-      packagingInfo: 'Bottle of 150 tablets',
-      iconIndex: 0,
-      imageUrl:
-          'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=600&q=80',
-      ],
-    ),
-    ProductModel(
-      id: 'prod_eoo_cool',
-      name: 'Eoo Cool',
-      genericName: 'Menthol & Eucalyptus Syrup',
-      brand: 'Bulbas oscan',
-      category: 'Suplements',
-      selectedStrength: '250mg',
-      availableStrengths: ['100mg', '250mg', '500mg'],
-      price: 56.00,
-      originalPrice: 80.00,
-      discountPercent: 45,
-      rating: 5.0,
-      reviewCount: 94,
-      isPrescriptionRequired: false,
-      description:
-          'Fast-acting soothing cooling relief formula for sore throat, bronchial discomfort, and nasal passage refreshment.',
-      indications:
-          '• Shake well before each use\n• Take 10ml every 6 hours or as directed by healthcare provider.\n• Drink warm water afterwards.',
-      precautions: 'Keep out of reach of children. Store below 25°C.',
-      packagingInfo: 'Bottle of 150 tablets',
-      iconIndex: 1,
-      imageUrl:
-          'https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=600&q=80',
-      ],
-    ),
-    ProductModel(
-      id: 'prod_betulin_lux',
-      name: 'Betulin Lux',
-      genericName: 'Betulin Herbal Extract',
-      brand: 'Kukis',
-      category: 'Ayurveda',
-      selectedStrength: '50mg',
-      availableStrengths: ['50mg', '100mg'],
-      price: 69.00,
-      originalPrice: 80.00,
-      discountPercent: 15,
-      rating: 4.9,
-      reviewCount: 76,
-      isPrescriptionRequired: false,
-      description:
-          'Pure birch bark triterpene formulated to boost natural cellular defenses, support liver health, and enhance antioxidant capacity.',
-      indications:
-          '• 1 capsule daily after a morning meal.\n• Continuous cycle for 30 days recommended.',
-      precautions: 'Not recommended for individuals with birch pollen allergy.',
-      packagingInfo: 'Bottle of 150 tablets',
+          'Prescription mandatory. Screen for cephalosporin or penicillin hypersensitivity before administration.',
+      packagingInfo: '1g Sterile Vial + 10ml WFI + Syringe',
       iconIndex: 2,
-      imageUrl:
-          'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=500&q=80',
+      imageUrl: 'assets/images/products/injection_vial.jpg',
       images: [
-        'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1587854680352-936b22b91030?auto=format&fit=crop&w=600&q=80',
+        'assets/images/products/injection_vial.jpg',
       ],
     ),
     ProductModel(
-      id: 'prod_kusadu_lux',
-      name: 'Kusadu Lux',
-      genericName: 'Glucosamine Chondroitin Complex',
-      brand: 'Okasa',
-      category: 'Suplements',
+      id: 'prod_normal_saline',
+      name: 'Normal Saline 0.9%',
+      genericName: 'Sodium Chloride IV Infusion USP',
+      brand: 'Opso Saline',
+      category: 'Saline & IV',
+      selectedStrength: '500ml',
+      availableStrengths: ['250ml', '500ml', '1000ml'],
+      price: 5.80,
+      originalPrice: 7.00,
+      discountPercent: 17,
+      rating: 5.0,
+      reviewCount: 265,
+      isPrescriptionRequired: true,
+      description:
+          'Sterile, non-pyrogenic isotonic 0.9% Sodium Chloride intravenous solution for fluid resuscitation, electrolyte replacement, and IV drug dilution.',
+      indications:
+          '• For intravenous infusion or wound irrigation under clinical supervision.\n• Inspect bag clarity before administration.',
+      precautions:
+          'Single-dose sterile container. Do not use if solution is cloudy or seal is compromised.',
+      packagingInfo: '500ml Sterile IV Infusion Bag',
+      iconIndex: 3,
+      imageUrl: 'assets/images/products/iv_saline_bag.jpg',
+      images: [
+        'assets/images/products/iv_saline_bag.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_hexisol_rub',
+      name: 'Hexisol Hand Rub',
+      genericName: 'Chlorhexidine Gluconate 0.5% + Alcohol 70%',
+      brand: 'ACI Pharma',
+      category: 'Antiseptic',
+      selectedStrength: '500ml',
+      availableStrengths: ['250ml', '500ml'],
+      price: 9.50,
+      originalPrice: 12.50,
+      discountPercent: 24,
+      rating: 5.0,
+      reviewCount: 418,
+      isPrescriptionRequired: false,
+      description:
+          'Hospital-grade surgical antiseptic hand rub providing rapid bactericidal, virucidal, and fungicidal protection killing 99.99% of germs without water.',
+      indications:
+          '• Apply 3–5ml onto dry palms and rub thoroughly across hands and wrists for 30 seconds.\n• Allow to air dry completely.',
+      precautions:
+          'Flammable liquid; keep away from heat or open flame. For external use only.',
+      packagingInfo: '500ml Pump Dispenser Bottle',
+      iconIndex: 4,
+      imageUrl: 'assets/images/products/hexisol_antiseptic.jpg',
+      images: [
+        'assets/images/products/hexisol_antiseptic.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_surgical_mask',
+      name: '3-Ply Surgical Mask',
+      genericName: 'Meltblown Medical Face Mask',
+      brand: 'MedShield Care',
+      category: 'Safety & PPE',
+      selectedStrength: '50 Pcs',
+      availableStrengths: ['20 Pcs', '50 Pcs', '100 Pcs'],
+      price: 8.00,
+      originalPrice: 12.00,
+      discountPercent: 33,
+      rating: 4.9,
+      reviewCount: 530,
+      isPrescriptionRequired: false,
+      description:
+          'Breathable 3-layer medical-grade disposable face masks with ≥98% BFE meltblown filter, soft elastic ear loops, and adjustable nose bridge.',
+      indications:
+          '• Pinch nose strip securely over bridge and cover nose and chin completely.\n• Replace every 4 hours or if damp.',
+      precautions: 'Single-use disposable medical barrier. Do not wash or reuse.',
+      packagingInfo: 'Dispenser Box of 50 Masks',
+      iconIndex: 0,
+      imageUrl: 'assets/images/products/surgical_mask.jpg',
+      images: [
+        'assets/images/products/surgical_mask.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_nitrile_gloves',
+      name: 'ProGuard Nitrile Gloves',
+      genericName: 'Powder-Free Examination Gloves',
+      brand: 'MedShield Care',
+      category: 'Safety & PPE',
+      selectedStrength: 'Size L (100)',
+      availableStrengths: ['Size M (100)', 'Size L (100)'],
+      price: 13.50,
+      originalPrice: 18.00,
+      discountPercent: 25,
+      rating: 4.9,
+      reviewCount: 289,
+      isPrescriptionRequired: false,
+      description:
+          'Latex-free, powder-free textured blue nitrile medical examination gloves offering superior puncture resistance and tactile sensitivity.',
+      indications:
+          '• Suitable for clinical examinations, wound dressing, lab handling, and home care.\n• Ambidextrous beaded cuff fit.',
+      precautions: 'Single use only. Store in a cool, dry place away from ozone sources.',
+      packagingInfo: 'Box of 100 Exam Gloves',
+      iconIndex: 1,
+      imageUrl: 'assets/images/products/nitrile_gloves.jpg',
+      images: [
+        'assets/images/products/nitrile_gloves.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_zimax_500',
+      name: 'Zimax 500mg',
+      genericName: 'Azithromycin Dihydrate USP',
+      brand: 'Square Pharma',
+      category: 'Tablets',
       selectedStrength: '500mg',
       availableStrengths: ['250mg', '500mg'],
-      price: 38.00,
-      originalPrice: 48.00,
-      discountPercent: 20,
-      rating: 4.9,
-      reviewCount: 110,
-      isPrescriptionRequired: false,
-      description:
-          'High potency joint support nutrition formulated to rebuild cartilage, ease joint stiffness, and enhance flexibility.',
-      indications:
-          '• Take 1 tablet twice daily with meals.\n• Best results observed after 4-6 weeks of consistent use.',
-      precautions: 'Individuals allergic to shellfish should consult a doctor.',
-      packagingInfo: 'Bottle of 150 tablets',
-      iconIndex: 3,
-      imageUrl:
-          'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=500&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=600&q=80',
-      ],
-    ),
-    ProductModel(
-      id: 'prod_goof_vitas',
-      name: 'Goof vitas',
-      genericName: 'Multivitamin & Minerals Complex',
-      brand: 'Meuokls olo',
-      category: 'Vitamin',
-      selectedStrength: '50mg',
-      availableStrengths: ['25mg', '50mg'],
-      price: 60.00,
-      originalPrice: 86.00,
-      discountPercent: 45,
-      rating: 5.0,
-      reviewCount: 205,
-      isPrescriptionRequired: false,
-      description:
-          'Complete daily micronutrient blend fortified with Vitamin C, D3, Zinc, and B-Complex to reinforce immunity and sustain energy.',
-      indications:
-          '• Take 1 tablet daily with breakfast.\n• Do not take on an empty stomach.',
-      precautions: 'Do not use as a substitute for a balanced diet.',
-      packagingInfo: 'Bottle of 150 tablets',
-      iconIndex: 4,
-      imageUrl:
-          'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=500&q=80',
-      images: [
-        'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=600&q=80',
-      ],
-    ),
-    ProductModel(
-      id: 'prod_suligga_max',
-      name: 'Suligga Max',
-      genericName: 'Azithromycin Dihydrate',
-      brand: 'Bescikos Cox',
-      category: 'Suplements',
-      selectedStrength: '50mg',
-      availableStrengths: ['50mg', '100mg', '500mg'],
-      price: 56.00,
-      originalPrice: 65.00,
-      discountPercent: 10,
+      price: 11.00,
+      originalPrice: 14.00,
+      discountPercent: 21,
       rating: 4.8,
-      reviewCount: 88,
+      reviewCount: 156,
       isPrescriptionRequired: true,
       description:
-          'Macrolide antibacterial agent designed to combat mild to moderate bacterial infections of respiratory tract and skin.',
+          'Macrolide antibiotic tablet indicated for community-acquired respiratory infections, acute bacterial sinusitis, tonsillitis, and skin infections.',
       indications:
-          '• Strictly as prescribed by registered physician.\n• Complete the entire course of medication.',
+          '• Strictly as prescribed by a registered physician.\n• Complete the full prescribed antibiotic course.',
       precautions:
-          'Prescription mandatory. Report immediate allergic reactions or severe diarrhea.',
-      packagingInfo: 'Bottle of 150 tablets',
-      iconIndex: 0,
-      imageUrl:
-          'https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=500&q=80',
+          'Prescription required. Inform your doctor of any macrolide allergy or heart rhythm history.',
+      packagingInfo: 'Box of 6 Film-Coated Tablets',
+      iconIndex: 2,
+      imageUrl: 'assets/images/products/antibiotic_tablets.jpg',
       images: [
-        'https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?auto=format&fit=crop&w=600&q=80',
-        'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+        'assets/images/products/antibiotic_tablets.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_insulin_pen',
+      name: 'Lantus SoloStar Pen',
+      genericName: 'Insulin Glargine 100 Units/ml',
+      brand: 'Sanofi Diabetes',
+      category: 'Diabetes',
+      selectedStrength: '100U/ml',
+      availableStrengths: ['100U/ml (1 Pen)', '100U/ml (3 Pens)'],
+      price: 34.00,
+      originalPrice: 42.00,
+      discountPercent: 19,
+      rating: 5.0,
+      reviewCount: 178,
+      isPrescriptionRequired: true,
+      description:
+          'Long-acting basal insulin analog pre-filled injection pen providing steady 24-hour glycemic control for Type 1 and Type 2 diabetes.',
+      indications:
+          '• Administer subcutaneously once daily at the same time each day.\n• Rotate injection sites (abdomen, thigh, upper arm).',
+      precautions:
+          'Prescription required. Refrigerate unopened pens at 2°C–8°C. Do not freeze.',
+      packagingInfo: '1 Pre-filled 3ml Pen (Cold-Chain)',
+      iconIndex: 3,
+      imageUrl: 'assets/images/products/insulin_pen.jpg',
+      images: [
+        'assets/images/products/insulin_pen.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_antacid_syrup',
+      name: 'Gaviscon Mint Syrup',
+      genericName: 'Sodium Alginate & Bicarbonate',
+      brand: 'Reckitt Health',
+      category: 'Syrups',
+      selectedStrength: '200ml',
+      availableStrengths: ['150ml', '200ml'],
+      price: 8.50,
+      originalPrice: 10.50,
+      discountPercent: 19,
+      rating: 4.8,
+      reviewCount: 224,
+      isPrescriptionRequired: false,
+      description:
+          'Soothing peppermint oral suspension that forms a protective raft over stomach contents for rapid relief from heartburn, acid reflux, and indigestion.',
+      indications:
+          '• Shake well before use.\n• Take 10–20ml after meals and at bedtime.',
+      precautions: 'Consult physician if on a low-sodium restricted diet.',
+      packagingInfo: '200ml Mint Suspension Bottle',
+      iconIndex: 4,
+      imageUrl: 'assets/images/products/antacid_syrup.jpg',
+      images: [
+        'assets/images/products/antacid_syrup.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_ors_saline',
+      name: 'Orsaline-N (ORS)',
+      genericName: 'WHO Oral Rehydration Salts',
+      brand: 'SMC Enterprise',
+      category: 'Saline & IV',
+      selectedStrength: '20 Sachets',
+      availableStrengths: ['10 Sachets', '20 Sachets'],
+      price: 4.00,
+      originalPrice: 5.00,
+      discountPercent: 20,
+      rating: 5.0,
+      reviewCount: 410,
+      isPrescriptionRequired: false,
+      description:
+          'WHO-recommended low-osmolarity oral rehydration salts rapidly restoring fluids, sodium, potassium, and zinc-balanced electrolytes during dehydration.',
+      indications:
+          '• Dissolve 1 full sachet in 500ml clean drinking water.\n• Consume within 24 hours of preparation.',
+      precautions: 'Do not boil the solution after mixing. Seek medical care if symptoms persist.',
+      packagingInfo: 'Box of 20 Foil Sachets',
+      iconIndex: 0,
+      imageUrl: 'assets/images/products/ors_saline.jpg',
+      images: [
+        'assets/images/products/ors_saline.jpg',
+      ],
+    ),
+    ProductModel(
+      id: 'prod_centrum_multi',
+      name: 'Daily Multivitamin',
+      genericName: 'Vitamin C, D3, Zinc & B-Complex',
+      brand: 'Haleon Wellness',
+      category: 'Vitamins',
+      selectedStrength: '60 Softgels',
+      availableStrengths: ['30 Softgels', '60 Softgels'],
+      price: 18.00,
+      originalPrice: 24.00,
+      discountPercent: 25,
+      rating: 4.9,
+      reviewCount: 315,
+      isPrescriptionRequired: false,
+      description:
+          'Complete daily micronutrient blend fortified with Vitamin C, D3, Zinc, and B-Complex to reinforce immune defense, cellular energy, and recovery.',
+      indications:
+          '• Take 1 softgel daily with breakfast.\n• Swallow with a full glass of water.',
+      precautions: 'Do not exceed recommended daily intake.',
+      packagingInfo: 'Bottle of 60 Softgels',
+      iconIndex: 1,
+      imageUrl: 'assets/images/products/multivitamin_bottle.jpg',
+      images: [
+        'assets/images/products/multivitamin_bottle.jpg',
       ],
     ),
   ];
 
   static List<CartItemModel> get initialCartItems => [
     CartItemModel(
-      product: products[0], // Plastic oi
+      product: products[0], // Napa Extend
       quantity: 1,
-      strength: '100mg',
+      strength: '665mg',
       isSelected: true,
     ),
     CartItemModel(
-      product: products[1], // Eoo Cool
+      product: products[4], // Hexisol Hand Rub
       quantity: 1,
-      strength: '250mg',
+      strength: '500ml',
       isSelected: true,
     ),
     CartItemModel(
-      product: products[2], // Betulin Lux
+      product: products[5], // 3-Ply Surgical Mask
       quantity: 1,
-      strength: '50mg',
+      strength: '50 Pcs',
       isSelected: true,
     ),
     CartItemModel(
-      product: products[3], // Kusadu Lux
+      product: products[6], // Nitrile Gloves
       quantity: 1,
-      strength: '500mg',
+      strength: 'Size L (100)',
       isSelected: false,
     ),
   ];
@@ -285,7 +441,7 @@ class MockData {
   static const List<PharmacyModel> nearbyPharmacies = [
     PharmacyModel(
       id: 'pharm_1',
-      name: 'Drug Store',
+      name: 'Lazz Pharma',
       address: 'House 12, Road 4, Sector 7, Uttara, Dhaka',
       rating: 5.0,
       reviewCount: 340,
@@ -344,13 +500,13 @@ class MockData {
       orderDate: DateTime.now().subtract(const Duration(hours: 4)),
       status: OrderStatus.shipped,
       items: [
-        CartItemModel(product: products[0], quantity: 2, strength: '100mg'),
-        CartItemModel(product: products[1], quantity: 1, strength: '250mg'),
+        CartItemModel(product: products[7], quantity: 1, strength: '500mg'),
+        CartItemModel(product: products[1], quantity: 1, strength: '120ml'),
       ],
-      subtotal: 132.00,
-      deliveryFee: 10.00,
-      discount: 18.00,
-      total: 124.00,
+      subtotal: 18.20,
+      deliveryFee: 3.00,
+      discount: 2.00,
+      total: 19.20,
       deliveryAddress: currentUser.address,
       contactNumber: currentUser.phone,
       paymentMethod: 'Mastercard (**** 4563)',
@@ -358,37 +514,37 @@ class MockData {
       trackingTimeline: const [
         TrackingStep(
           title: 'Shipped',
-          date: '31 Jan',
-          time: '12:30 am',
-          description: 'Order picked up and on route with rider',
+          date: '16 Nov',
+          time: '04:30 pm',
+          description: 'Order picked up and on route with cold-chain rider',
           isCompleted: true,
           isCurrent: true,
         ),
         TrackingStep(
           title: 'Picked',
-          date: '28 Jan',
-          time: '04:10 am',
+          date: '16 Nov',
+          time: '03:50 pm',
           description: 'Pharmacy packed items and assigned courier',
           isCompleted: true,
         ),
         TrackingStep(
           title: 'Processed',
-          date: '26 Jan',
+          date: '16 Nov',
           time: '03:20 pm',
           description: 'Prescription verified by licensed pharmacist',
           isCompleted: true,
         ),
         TrackingStep(
           title: 'Confirming',
-          date: '23 Jan',
-          time: '12:30 am',
+          date: '16 Nov',
+          time: '02:45 pm',
           description: 'Order confirmed and inventory reserved',
           isCompleted: true,
         ),
         TrackingStep(
           title: 'Pending',
-          date: '20 Jan',
-          time: '12:30 am',
+          date: '16 Nov',
+          time: '02:30 pm',
           description: 'Payment authorized via Mastercard gateway',
           isCompleted: true,
         ),
@@ -400,27 +556,27 @@ class MockData {
       orderDate: DateTime.now().subtract(const Duration(days: 2)),
       status: OrderStatus.confirming,
       items: [
-        CartItemModel(product: products[2], quantity: 3, strength: '50mg'),
+        CartItemModel(product: products[8], quantity: 1, strength: '100U/ml'),
       ],
-      subtotal: 207.00,
-      deliveryFee: 10.00,
+      subtotal: 34.00,
+      deliveryFee: 3.00,
       discount: 0.00,
-      total: 217.00,
+      total: 37.00,
       deliveryAddress: currentUser.address,
       contactNumber: currentUser.phone,
       paymentMethod: 'Cash on Delivery',
       trackingTimeline: const [
         TrackingStep(
           title: 'Confirming',
-          date: '23 Jan',
+          date: '14 Nov',
           time: '11:15 am',
-          description: 'Order awaiting pharmacy stock verification',
+          description: 'Order awaiting cold-chain stock verification',
           isCompleted: true,
           isCurrent: true,
         ),
         TrackingStep(
           title: 'Pending',
-          date: '23 Jan',
+          date: '14 Nov',
           time: '10:50 am',
           description: 'Order received into the system',
           isCompleted: true,
@@ -433,19 +589,20 @@ class MockData {
       orderDate: DateTime.now().subtract(const Duration(days: 10)),
       status: OrderStatus.delivered,
       items: [
-        CartItemModel(product: products[4], quantity: 1, strength: '50mg'),
+        CartItemModel(product: products[4], quantity: 2, strength: '500ml'),
+        CartItemModel(product: products[5], quantity: 1, strength: '50 Pcs'),
       ],
-      subtotal: 60.00,
-      deliveryFee: 10.00,
-      discount: 10.00,
-      total: 60.00,
+      subtotal: 27.00,
+      deliveryFee: 3.00,
+      discount: 5.00,
+      total: 25.00,
       deliveryAddress: currentUser.address,
       contactNumber: currentUser.phone,
       paymentMethod: 'bKash / Nagad',
       trackingTimeline: const [
         TrackingStep(
           title: 'Delivered',
-          date: '15 Jan',
+          date: '06 Nov',
           time: '02:40 pm',
           description: 'Delivered to recipient with digital signature',
           isCompleted: true,
@@ -458,46 +615,46 @@ class MockData {
   static const List<NotificationModel> notifications = [
     NotificationModel(
       id: 'notif_1',
-      title: 'Drug 20% off',
+      title: 'PPE & Antiseptic 25% Off',
       message:
-          'Special weekend promotion: Enjoy 20% discount on all seasonal prescription medications.',
+          'Save up to 25% on Hexisol Hand Rub, 3-Ply Surgical Masks, and Nitrile Gloves.',
       time: '10:14 AM',
       group: NotificationGroup.today,
       isRead: false,
     ),
     NotificationModel(
       id: 'notif_2',
-      title: 'Suligga Max 10%',
+      title: 'Cold-Chain Insulin Ready',
       message:
-          'Price drop alert! Suligga Max 50mg is now available at an extra 10% coupon rebate.',
-      time: '02:30 AM',
+          'Your Lantus SoloStar Insulin prescription refill is verified and eligible for express cold delivery.',
+      time: '08:30 AM',
       group: NotificationGroup.today,
       isRead: false,
     ),
     NotificationModel(
       id: 'notif_3',
-      title: 'Sunday Offer',
+      title: 'Free Express Delivery',
       message:
-          'Get free express doorstep delivery on all orders above \$50 placed this Sunday.',
-      time: '03:18 AM',
+          'Enjoy zero delivery fee on all pharmacy orders above \$25 this weekend.',
+      time: '03:18 PM',
       group: NotificationGroup.yesterday,
       isRead: true,
     ),
     NotificationModel(
       id: 'notif_4',
-      title: 'Star Sunday Offer',
+      title: '2x Loyalty Health Points',
       message:
-          'Earn 2x pharmacy loyalty stars on all essential vitamin & immunity supplements.',
-      time: '04:14 AM',
+          'Earn double pharmacy reward stars on Daily Multivitamin & Orsaline-N wellness packs.',
+      time: '04:14 PM',
       group: NotificationGroup.yesterday,
       isRead: true,
     ),
     NotificationModel(
       id: 'notif_5',
-      title: 'Biggest Offers',
+      title: '24/7 Pharmacist Support Live',
       message:
-          'Annual health & wellness sale is now live. Explore over 500+ curated healthcare items.',
-      time: '06:20 AM',
+          'Have questions about dosage or IV saline care? Start an instant chat with our clinical pharmacists.',
+      time: '06:20 PM',
       group: NotificationGroup.lastWeek,
       isRead: true,
     ),
@@ -525,13 +682,12 @@ class MockData {
     ),
   ];
 
-  // Demo Mock Data: Saved Addresses
   static List<AddressModel> get initialAddresses => [
     const AddressModel(
       id: 'addr_home',
       label: 'Home',
       recipientName: 'Hera Rahman',
-      phone: '0569 - 8963 - 5632',
+      phone: '+880 1711-896356',
       streetAddress: 'House #28, Road #30, Sector #10',
       area: 'Uttara',
       city: 'Dhaka 1230',
@@ -541,7 +697,7 @@ class MockData {
       id: 'addr_office',
       label: 'Office',
       recipientName: 'Hera Rahman',
-      phone: '0171 - 4567 - 8901',
+      phone: '+880 1714-567890',
       streetAddress: 'Level 8, Concord Tower, Gulshan-2',
       area: 'Gulshan',
       city: 'Dhaka 1212',
@@ -551,7 +707,7 @@ class MockData {
       id: 'addr_parents',
       label: 'Parents',
       recipientName: 'Rafiqul Rahman',
-      phone: '0181 - 9876 - 5432',
+      phone: '+880 1819-876543',
       streetAddress: 'Flat 4B, Green Road, Dhanmondi',
       area: 'Dhanmondi',
       city: 'Dhaka 1205',
@@ -559,72 +715,69 @@ class MockData {
     ),
   ];
 
-  // Demo Mock Data: Wishlist
   static List<ProductModel> get initialWishlist => [
-    products[2], // Betulin Lux
-    products[4], // Goof vitas
+    products[4], // Hexisol Hand Rub
+    products[11], // Daily Multivitamin
+    products[5], // Surgical Mask
   ];
 
-  // Demo Mock Data: Prescriptions
   static List<PrescriptionModel> get initialPrescriptions => [
     PrescriptionModel(
       id: 'rx_1',
       title: 'Chest & Respiratory Care',
       doctorName: 'Dr. Shahriar Kabir, MD',
       doctorSpecialty: 'Pulmonologist & Chest Specialist',
-      hospital: 'Apollo Hospitals Dhaka',
+      hospital: 'Evercare Hospital Dhaka',
       issueDate: DateTime.now().subtract(const Duration(days: 12)),
       expiryDate: DateTime.now().add(const Duration(days: 48)),
       status: PrescriptionStatus.verified,
-      fileUrl:
-          'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=500',
+      fileUrl: 'assets/images/products/antibiotic_tablets.jpg',
       linkedMedicines: [
-        products[5], // Suligga Max 50mg
-        products[0], // Plastic oi
+        products[7], // Zimax 500mg
+        products[1], // Tusca Plus Cough Syrup
+        products[2], // Ceftriaxone IV/IM
       ],
-      notes: 'Take with warm water after breakfast. Complete 15-day course.',
+      notes: 'Take Zimax 500mg once daily after breakfast. Complete full course.',
     ),
     PrescriptionModel(
       id: 'rx_2',
-      title: 'Daily Liver & Antioxidant Support',
+      title: 'Diabetes & Fluid Support',
       doctorName: 'Dr. Nusrat Jahan, MBBS, FCPS',
-      doctorSpecialty: 'Internal Medicine & Hepatology',
+      doctorSpecialty: 'Endocrinology & Internal Medicine',
       hospital: 'Square Hospital',
       issueDate: DateTime.now().subtract(const Duration(days: 28)),
       expiryDate: DateTime.now().add(const Duration(days: 62)),
       status: PrescriptionStatus.verified,
-      fileUrl:
-          'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500',
+      fileUrl: 'assets/images/products/insulin_pen.jpg',
       linkedMedicines: [
-        products[2], // Betulin Lux 50mg
-        products[4], // Goof vitas
+        products[8], // Lantus Insulin Pen
+        products[3], // Normal Saline 0.9%
       ],
-      notes: 'Ongoing monthly prescription for cellular immunity maintenance.',
+      notes: 'Monitor fasting blood glucose daily. Store insulin at 2–8°C.',
     ),
     PrescriptionModel(
       id: 'rx_3',
-      title: 'Seasonal Allergy Relief',
+      title: 'Acute Fever & Gastric Relief',
       doctorName: 'Dr. Anisur Rahman, MD',
-      doctorSpecialty: 'Allergy & Immunology',
+      doctorSpecialty: 'General Medicine',
       hospital: 'United Hospital',
       issueDate: DateTime.now().subtract(const Duration(days: 95)),
       expiryDate: DateTime.now().subtract(const Duration(days: 5)),
       status: PrescriptionStatus.expired,
-      fileUrl:
-          'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=500',
+      fileUrl: 'assets/images/products/paracetamol_tablets.jpg',
       linkedMedicines: [
-        products[1], // Eoo Cool 250mg
+        products[0], // Napa Extend
+        products[9], // Gaviscon Mint Syrup
       ],
       notes: 'Expired course. Consultation renewal required before refilling.',
     ),
   ];
 
-  // Demo Mock Data: Pill Reminders
   static List<ReminderModel> get initialReminders => [
     ReminderModel(
       id: 'rem_1',
-      product: products[4], // Goof vitas
-      dosage: '1 Capsule',
+      product: products[11], // Daily Multivitamin
+      dosage: '1 Softgel',
       instruction: 'After breakfast',
       slot: ReminderTimeSlot.morning,
       time: '08:30 AM',
@@ -634,31 +787,31 @@ class MockData {
     ),
     ReminderModel(
       id: 'rem_2',
-      product: products[2], // Betulin Lux
+      product: products[0], // Napa Extend
       dosage: '1 Tablet',
-      instruction: 'Before lunch',
+      instruction: 'After lunch',
       slot: ReminderTimeSlot.afternoon,
       time: '01:15 PM',
       isTakenToday: false,
       remainingDoses: 18,
-      totalDoses: 30,
+      totalDoses: 20,
     ),
     ReminderModel(
       id: 'rem_3',
-      product: products[5], // Suligga Max
-      dosage: '1 Capsule (Rx)',
-      instruction: 'With evening tea',
+      product: products[7], // Zimax 500mg
+      dosage: '1 Tablet (Rx)',
+      instruction: 'With evening meal',
       slot: ReminderTimeSlot.evening,
       time: '06:30 PM',
       isTakenToday: false,
-      remainingDoses: 5, // Due for refill!
-      totalDoses: 15,
+      remainingDoses: 2, // Due for refill!
+      totalDoses: 6,
     ),
     ReminderModel(
       id: 'rem_4',
-      product: products[1], // Eoo Cool
-      dosage: '1 Tablet',
-      instruction: 'Before bed',
+      product: products[8], // Lantus Insulin Pen
+      dosage: '12 Units SC (Rx)',
+      instruction: 'Before bedtime',
       slot: ReminderTimeSlot.night,
       time: '10:00 PM',
       isTakenToday: false,
@@ -667,7 +820,6 @@ class MockData {
     ),
   ];
 
-  // Demo Mock Data: Pharmacists & Telemedicine Consultants
   static List<PharmacistModel> get pharmacists => [
     const PharmacistModel(
       id: 'pharm_1',
@@ -682,7 +834,7 @@ class MockData {
           'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300',
       isOnline: true,
       about:
-          'Expert in drug-drug interactions, chronic diabetes therapy management, and pediatric dosage calibration.',
+          'Expert in drug-drug interactions, chronic diabetes insulin titration, and pediatric dosage calibration.',
       availableSlots: [
         '10:00 AM',
         '11:30 AM',
@@ -705,7 +857,7 @@ class MockData {
           'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300',
       isOnline: true,
       about:
-          'Specialized in OTC guidance, herbal supplement compatibility, respiratory inhaler technique, and allergy counseling.',
+          'Specialized in OTC guidance, cough & cold syrup selection, sterile antiseptic care, and respiratory counseling.',
       availableSlots: ['09:30 AM', '12:00 PM', '02:30 PM', '05:00 PM'],
       languages: ['English', 'Bengali'],
     ),
@@ -722,7 +874,7 @@ class MockData {
           'https://images.unsplash.com/photo-1594824813590-781e9b724490?w=300',
       isOnline: false,
       about:
-          'Advises elderly patients on multi-drug regimens, blood pressure monitoring, anticoagulation regimens, and kidney safety.',
+          'Advises elderly patients on multi-drug regimens, IV saline home care, blood pressure monitoring, and kidney safety.',
       availableSlots: ['04:00 PM', '06:00 PM', '08:00 PM'],
       languages: ['English', 'Bengali'],
     ),

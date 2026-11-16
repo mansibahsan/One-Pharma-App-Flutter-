@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/cart_item_model.dart';
 import '../data/models/product_model.dart';
-import '../data/mock/mock_data.dart';
 
 class CartState {
   final List<CartItemModel> items;
@@ -39,7 +38,7 @@ class CartState {
 }
 
 class CartNotifier extends StateNotifier<CartState> {
-  CartNotifier() : super(CartState(items: MockData.initialCartItems));
+  CartNotifier() : super(const CartState(items: []));
 
   void addItem(ProductModel product, {String? strength, int quantity = 1}) {
     final targetStrength = strength ?? product.selectedStrength;
@@ -63,6 +62,39 @@ class CartNotifier extends StateNotifier<CartState> {
       );
       state = state.copyWith(items: [...state.items, newItem]);
     }
+  }
+
+  void prepareOrderNow(
+    ProductModel product, {
+    String? strength,
+    int? quantity,
+  }) {
+    final targetStrength = strength ?? product.selectedStrength;
+    final updatedList =
+        state.items.map((item) => item.copyWith(isSelected: false)).toList();
+
+    final existingIndex = updatedList.indexWhere(
+      (item) => item.product.id == product.id && item.strength == targetStrength,
+    );
+
+    if (existingIndex != -1) {
+      final current = updatedList[existingIndex];
+      updatedList[existingIndex] = current.copyWith(
+        quantity: quantity ?? current.quantity,
+        isSelected: true,
+      );
+    } else {
+      updatedList.add(
+        CartItemModel(
+          product: product,
+          strength: targetStrength,
+          quantity: quantity ?? 1,
+          isSelected: true,
+        ),
+      );
+    }
+
+    state = state.copyWith(items: updatedList);
   }
 
   void updateQuantity(String productId, String strength, int newQuantity) {

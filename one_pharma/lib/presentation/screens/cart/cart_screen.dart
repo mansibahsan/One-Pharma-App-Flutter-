@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
@@ -6,7 +6,7 @@ import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/providers/cart_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 import 'package:one_pharma/presentation/widgets/quantity_stepper.dart';
-import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 import 'empty_cart_screen.dart';
 
 class CartScreen extends ConsumerWidget {
@@ -30,10 +30,13 @@ class CartScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primary),
-          onPressed: () => context.pop(),
-        ),
+        automaticallyImplyLeading: false,
+        leading: (GoRouter.maybeOf(context)?.canPop() ?? Navigator.of(context).canPop())
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back, color: AppColors.primary),
+                onPressed: () => context.pop(),
+              )
+            : null,
         title: Text(
           'Medicine Bag',
           style: AppTextStyles.h3.copyWith(fontSize: 18),
@@ -167,37 +170,21 @@ class CartScreen extends ConsumerWidget {
 
                         // Thumbnail
                         Container(
-                          width: 52,
-                          height: 52,
+                          width: 56,
+                          height: 56,
                           decoration: BoxDecoration(
                             color: AppColors.scaffoldBackground,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: ClipRRect(
+                          child: ProductImage(
+                            imagePath: item.product.imageUrl,
+                            width: 56,
+                            height: 56,
                             borderRadius: BorderRadius.circular(12),
-                            child: item.product.imageUrl != null && item.product.imageUrl!.isNotEmpty
-                                ? Image.network(
-                                    item.product.imageUrl!,
-                                    width: 52,
-                                    height: 52,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (_, _, _) => Center(
-                                      child: MedicineBottleArt(
-                                        size: 40,
-                                        primaryColor: item.product.isPrescriptionRequired
-                                            ? AppColors.primary
-                                            : const Color(0xFF2E90FA),
-                                      ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: MedicineBottleArt(
-                                      size: 40,
-                                      primaryColor: item.product.isPrescriptionRequired
-                                          ? AppColors.primary
-                                          : const Color(0xFF2E90FA),
-                                    ),
-                                  ),
+                            fallbackColor: item.product.isPrescriptionRequired
+                                ? AppColors.primary
+                                : const Color(0xFF2E90FA),
+                            fallbackSize: 40,
                           ),
                         ),
                         const SizedBox(width: 12),

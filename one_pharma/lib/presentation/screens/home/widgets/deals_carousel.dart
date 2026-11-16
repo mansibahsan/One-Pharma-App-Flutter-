@@ -1,7 +1,7 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
-import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 
 class DealsCarousel extends StatelessWidget {
   final ValueChanged<String>? onDealTap;
@@ -18,57 +18,54 @@ class DealsCarousel extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 2),
         children: [
           _buildDealBanner(
-            category: 'VITAMINS',
-            title: 'Multivitamins',
-            subtitle: 'Immunity Boost',
-            discount: '45% OFF',
-            price: r'$56.00',
-            originalPrice: r'$80.00',
-            imageUrl:
-                'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=400&q=80',
+            category: 'SAFETY & PPE',
+            title: '3-Ply Face Masks',
+            subtitle: 'Box of 50 • BFE 98%',
+            discount: '33% OFF',
+            price: r'$8.00',
+            originalPrice: r'$12.00',
+            imagePath: 'assets/images/products/surgical_mask.jpg',
             gradient: const LinearGradient(
               colors: [Color(0xFFFFF0F2), Color(0xFFFFDDE1)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             accentColor: AppColors.primary,
-            onTap: () => onDealTap?.call('prod_goof_vitas'),
+            onTap: () => onDealTap?.call('prod_surgical_mask'),
           ),
           const SizedBox(width: 14),
           _buildDealBanner(
-            category: 'AYURVEDA',
-            title: 'Herbal Care',
-            subtitle: '100% Organic',
-            discount: '45% OFF',
-            price: r'$89.00',
-            originalPrice: r'$90.00',
-            imageUrl:
-                'https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=400&q=80',
+            category: 'ANTISEPTIC',
+            title: 'Hexisol Hand Rub',
+            subtitle: '500ml Hospital Grade',
+            discount: '24% OFF',
+            price: r'$9.50',
+            originalPrice: r'$12.50',
+            imagePath: 'assets/images/products/hexisol_antiseptic.jpg',
+            gradient: const LinearGradient(
+              colors: [Color(0xFFECFEFF), Color(0xFFCFFAFE)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            accentColor: const Color(0xFF0D9488),
+            onTap: () => onDealTap?.call('prod_hexisol_rub'),
+          ),
+          const SizedBox(width: 14),
+          _buildDealBanner(
+            category: 'VITAMINS',
+            title: 'Daily Multivitamin',
+            subtitle: 'Immunity & Zinc',
+            discount: '25% OFF',
+            price: r'$18.00',
+            originalPrice: r'$24.00',
+            imagePath: 'assets/images/products/multivitamin_bottle.jpg',
             gradient: const LinearGradient(
               colors: [Color(0xFFFFF6ED), Color(0xFFFFE5D0)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             accentColor: const Color(0xFFF79009),
-            onTap: () => onDealTap?.call('prod_betulin_lux'),
-          ),
-          const SizedBox(width: 14),
-          _buildDealBanner(
-            category: 'DAILY CARE',
-            title: 'Allergy Relief',
-            subtitle: 'Fast Action',
-            discount: '20% OFF',
-            price: r'$38.00',
-            originalPrice: r'$56.00',
-            imageUrl:
-                'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80',
-            gradient: const LinearGradient(
-              colors: [Color(0xFFEDF6FF), Color(0xFFD6EBFF)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            accentColor: const Color(0xFF2E90FA),
-            onTap: () => onDealTap?.call('prod_plastic_oi'),
+            onTap: () => onDealTap?.call('prod_centrum_multi'),
           ),
         ],
       ),
@@ -82,7 +79,7 @@ class DealsCarousel extends StatelessWidget {
     required String discount,
     required String price,
     required String originalPrice,
-    required String imageUrl,
+    required String imagePath,
     required LinearGradient gradient,
     required Color accentColor,
     required VoidCallback onTap,
@@ -90,7 +87,7 @@ class DealsCarousel extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 235,
+        width: 245,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
           gradient: gradient,
@@ -106,13 +103,11 @@ class DealsCarousel extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Left Text Content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Discount Tag Pill
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                     decoration: BoxDecoration(
@@ -161,39 +156,39 @@ class DealsCarousel extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Price row
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        price,
-                        style: AppTextStyles.priceLarge.copyWith(
-                          fontSize: 14,
-                          color: accentColor,
-                          fontWeight: FontWeight.w800,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          price,
+                          style: AppTextStyles.priceLarge.copyWith(
+                            fontSize: 14,
+                            color: accentColor,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        originalPrice,
-                        style: AppTextStyles.priceOriginal.copyWith(fontSize: 10.5),
-                      ),
-                    ],
+                        const SizedBox(width: 5),
+                        Text(
+                          originalPrice,
+                          style: AppTextStyles.priceOriginal.copyWith(fontSize: 10.5),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 8),
-
-            // Right Product Picture Banner
             Stack(
               alignment: Alignment.center,
               children: [
-                // Soft background glow circle
                 Container(
-                  width: 76,
-                  height: 76,
+                  width: 78,
+                  height: 78,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white.withValues(alpha: 0.9),
@@ -206,33 +201,14 @@ class DealsCarousel extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Real product photo
-                ClipRRect(
+                ProductImage(
+                  imagePath: imagePath,
+                  width: 74,
+                  height: 74,
+                  fit: BoxFit.cover,
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    imageUrl,
-                    width: 72,
-                    height: 72,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-                      return Center(
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(accentColor),
-                          ),
-                        ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) => MedicineBottleArt(
-                      size: 48,
-                      primaryColor: accentColor,
-                      hasCapsule: true,
-                    ),
-                  ),
+                  fallbackColor: accentColor,
+                  fallbackSize: 48,
                 ),
               ],
             ),

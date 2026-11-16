@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
+import 'package:one_pharma/data/mock/mock_data.dart';
 import 'package:one_pharma/providers/product_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 
@@ -18,15 +19,18 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
   String? _selectedStrength;
   late SortOption _selectedSort;
 
-  final List<String> _brands = [
-    'Kukis',
-    'Bulbas oscan',
-    'Bescikos Cox',
-    'Okasa',
-    'Meuokls olo',
-  ];
+  late final List<String> _categories =
+      MockData.categories.map((c) => c.name).toList();
 
-  final List<String> _strengths = ['25mg', '50mg', '100mg', '250mg', '500mg'];
+  late final List<String> _brands = MockData.products
+      .map((p) => p.brand)
+      .toSet()
+      .toList();
+
+  late final List<String> _strengths = MockData.products
+      .expand((p) => p.availableStrengths)
+      .toSet()
+      .toList();
 
   @override
   void initState() {
@@ -113,9 +117,9 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
                 ),
                 const SizedBox(height: 12),
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 8,
-                  children: ['All', 'Suplements', 'Ayurveda', 'Vitamin', 'Diabetes']
+                  children: _categories
                       .map((cat) {
                     final isSelected = _selectedCategory == cat;
                     return ChoiceChip(

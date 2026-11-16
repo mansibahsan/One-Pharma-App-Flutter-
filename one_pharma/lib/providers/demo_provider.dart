@@ -3,6 +3,7 @@ import '../data/mock/mock_data.dart';
 import '../data/models/address_model.dart';
 import 'cart_provider.dart';
 import 'address_provider.dart';
+import 'order_provider.dart';
 import 'prescription_provider.dart';
 import 'reminder_provider.dart';
 import 'wishlist_provider.dart';
@@ -26,9 +27,9 @@ enum DemoPersona {
   String get subtitle {
     switch (this) {
       case DemoPersona.newPatient:
-        return 'Fresh experience with welcome coupon and clean states';
+        return 'Fresh experience with empty bag, no orders, clean states';
       case DemoPersona.regularCustomer:
-        return '3 items in bag, order out for delivery, 2 saved addresses';
+        return '3 items in bag, active delivery tracking, 3 saved addresses';
       case DemoPersona.chronicCare:
         return '2 verified prescriptions, 4 pill reminders, refill alerts';
     }
@@ -45,14 +46,14 @@ void applyDemoPersona(WidgetRef ref, DemoPersona persona) {
 
   switch (persona) {
     case DemoPersona.newPatient:
-      // Empty cart, no orders, clean addresses
       ref.read(cartProvider.notifier).clearCart();
+      ref.read(ordersProvider.notifier).setOrders([]);
       ref.read(addressProvider.notifier).setAddresses([
         const AddressModel(
           id: 'addr_1',
           label: 'Home',
           recipientName: 'New Patient',
-          phone: '0171-1234567',
+          phone: '+880 1711-234567',
           streetAddress: 'Road #5, Block C',
           area: 'Banani',
           city: 'Dhaka 1213',
@@ -65,25 +66,26 @@ void applyDemoPersona(WidgetRef ref, DemoPersona persona) {
       break;
 
     case DemoPersona.regularCustomer:
-      // Active cart, standard orders, verified addresses
       ref.read(cartProvider.notifier).clearCart();
-      ref.read(cartProvider.notifier).addItem(products[0], quantity: 2);
-      ref.read(cartProvider.notifier).addItem(products[1], quantity: 1);
-      ref.read(cartProvider.notifier).addItem(products[4], quantity: 1);
+      ref.read(cartProvider.notifier).addItem(products[0], quantity: 2); // Napa Extend
+      ref.read(cartProvider.notifier).addItem(products[4], quantity: 1); // Hexisol Hand Rub
+      ref.read(cartProvider.notifier).addItem(products[5], quantity: 1); // 3-Ply Surgical Mask
+      ref.read(ordersProvider.notifier).setOrders(MockData.mockOrders);
       ref.read(addressProvider.notifier).setAddresses(MockData.initialAddresses);
       ref.read(prescriptionProvider.notifier).setPrescriptions(MockData.initialPrescriptions);
       ref.read(reminderProvider.notifier).setReminders(MockData.initialReminders);
-      ref.read(wishlistProvider.notifier).setWishlist([products[2], products[3]]);
+      ref.read(wishlistProvider.notifier).setWishlist([products[4], products[11]]);
       break;
 
     case DemoPersona.chronicCare:
-      // Rich prescriptions, full reminders, due refills
       ref.read(cartProvider.notifier).clearCart();
-      ref.read(cartProvider.notifier).addItem(products[2], quantity: 1); // Betulin Lux
+      ref.read(cartProvider.notifier).addItem(products[8], quantity: 1); // Lantus Insulin Pen
+      ref.read(cartProvider.notifier).addItem(products[3], quantity: 1); // Normal Saline 0.9%
+      ref.read(ordersProvider.notifier).setOrders(MockData.mockOrders);
       ref.read(addressProvider.notifier).setAddresses(MockData.initialAddresses);
       ref.read(prescriptionProvider.notifier).setPrescriptions(MockData.initialPrescriptions);
       ref.read(reminderProvider.notifier).setReminders(MockData.initialReminders);
-      ref.read(wishlistProvider.notifier).setWishlist([products[0], products[1], products[4]]);
+      ref.read(wishlistProvider.notifier).setWishlist([products[7], products[8], products[11]]);
       break;
   }
 }

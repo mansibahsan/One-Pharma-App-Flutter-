@@ -5,7 +5,7 @@ import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/data/models/order_model.dart';
 import 'package:one_pharma/providers/order_provider.dart';
-import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 
 class OrdersListScreen extends ConsumerWidget {
   const OrdersListScreen({super.key});
@@ -72,7 +72,7 @@ class OrdersListScreen extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          // Item preview icon
+                          // Item preview image
                           Container(
                             width: 52,
                             height: 52,
@@ -80,27 +80,13 @@ class OrdersListScreen extends ConsumerWidget {
                               color: AppColors.scaffoldBackground,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: ClipRRect(
+                            child: ProductImage(
+                              imagePath: firstItem?.product.imageUrl,
+                              width: 52,
+                              height: 52,
                               borderRadius: BorderRadius.circular(12),
-                              child: firstItem?.product.imageUrl != null && firstItem!.product.imageUrl!.isNotEmpty
-                                  ? Image.network(
-                                      firstItem.product.imageUrl!,
-                                      width: 52,
-                                      height: 52,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (_, _, _) => Center(
-                                        child: MedicineBottleArt(
-                                          size: 38,
-                                          primaryColor: _getStatusColor(order.status),
-                                        ),
-                                      ),
-                                    )
-                                  : Center(
-                                      child: MedicineBottleArt(
-                                        size: 38,
-                                        primaryColor: _getStatusColor(order.status),
-                                      ),
-                                    ),
+                              fallbackColor: _getStatusColor(order.status),
+                              fallbackSize: 38,
                             ),
                           ),
                           const SizedBox(width: 14),

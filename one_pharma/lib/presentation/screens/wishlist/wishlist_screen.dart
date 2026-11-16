@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/providers/wishlist_provider.dart';
+import 'package:one_pharma/presentation/screens/shell/main_shell_screen.dart';
 import 'package:one_pharma/presentation/widgets/medicine_card.dart';
 
 class WishlistScreen extends ConsumerWidget {
@@ -19,10 +20,17 @@ class WishlistScreen extends ConsumerWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textPrimary, size: 20),
-          onPressed: () => context.pop(),
-        ),
+        automaticallyImplyLeading: false,
+        leading: (GoRouter.maybeOf(context)?.canPop() ?? Navigator.of(context).canPop())
+            ? IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: AppColors.textPrimary,
+                  size: 20,
+                ),
+                onPressed: () => context.pop(),
+              )
+            : null,
         title: Text(
           'Saved Medicines (${wishlist.length})',
           style: AppTextStyles.h2.copyWith(fontSize: 18),
@@ -66,7 +74,12 @@ class WishlistScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
-                      onPressed: () => context.go('/home'),
+                      onPressed: () {
+                        ref.read(mainShellTabProvider.notifier).state = 0;
+                        if (GoRouter.maybeOf(context) != null) {
+                          context.go('/home');
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
                         foregroundColor: Colors.white,
@@ -85,7 +98,7 @@ class WishlistScreen extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.64,
+                childAspectRatio: 0.60,
                 crossAxisSpacing: 14,
                 mainAxisSpacing: 14,
               ),
@@ -93,6 +106,7 @@ class WishlistScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 return MedicineCard(
                   product: wishlist[index],
+                  isHorizontal: false,
                   onTap: () => context.push('/product/${wishlist[index].id}'),
                 );
               },

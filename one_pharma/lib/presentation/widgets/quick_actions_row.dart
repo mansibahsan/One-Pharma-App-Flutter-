@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
+import 'package:one_pharma/providers/prescription_provider.dart';
+import 'package:one_pharma/providers/reminder_provider.dart';
 
-class QuickActionsRow extends StatelessWidget {
+class QuickActionsRow extends ConsumerWidget {
   const QuickActionsRow({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final activeRxCount =
+        ref.watch(prescriptionProvider).where((p) => p.isValid).length;
+    final reminderCount = ref.watch(reminderProvider).length;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Column(
@@ -15,11 +21,15 @@ class QuickActionsRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                'Healthcare Services',
-                style: AppTextStyles.h3.copyWith(fontSize: 16),
+              Expanded(
+                child: Text(
+                  'Healthcare Services',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.h3.copyWith(fontSize: 16),
+                ),
               ),
-              const Spacer(),
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
@@ -56,7 +66,7 @@ class QuickActionsRow extends StatelessWidget {
                 child: _buildActionTile(
                   context: context,
                   title: 'Rx Vault',
-                  subtitle: '3 Active Meds',
+                  subtitle: '$activeRxCount Active Rx',
                   icon: Icons.health_and_safety_rounded,
                   color: const Color(0xFF2563EB),
                   bgColor: const Color(0xFFDBEAFE),
@@ -68,7 +78,7 @@ class QuickActionsRow extends StatelessWidget {
                 child: _buildActionTile(
                   context: context,
                   title: 'Pill Alert',
-                  subtitle: 'Adherence',
+                  subtitle: '$reminderCount Today',
                   icon: Icons.alarm_on_rounded,
                   color: const Color(0xFFD97706),
                   bgColor: const Color(0xFFFEF3C7),
@@ -79,7 +89,7 @@ class QuickActionsRow extends StatelessWidget {
               Expanded(
                 child: _buildActionTile(
                   context: context,
-                  title: 'Teleconsult',
+                  title: 'Consult',
                   subtitle: 'Doctor Live',
                   icon: Icons.medical_services_rounded,
                   color: const Color(0xFF7C3AED),

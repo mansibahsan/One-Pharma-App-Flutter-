@@ -15,6 +15,7 @@ import 'package:one_pharma/presentation/widgets/medicine_card.dart';
 import 'package:one_pharma/presentation/screens/catalog/filter_bottom_sheet.dart';
 import 'widgets/category_selector.dart';
 import 'widgets/deals_carousel.dart';
+import 'widgets/hero_banner_carousel.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -240,6 +241,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
 
+            // Hero Banner Carousel (Real Photography)
+            const SliverToBoxAdapter(
+              child: HeroBannerCarousel(),
+            ),
+
             // Quick Healthcare Actions
             const SliverToBoxAdapter(
               child: QuickActionsRow(),
@@ -265,7 +271,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             .read(productFilterProvider.notifier)
                             .setCategory(cat);
                         if (cat != 'All') {
-                          context.push('/category/$cat');
+                          context.push('/category/${Uri.encodeComponent(cat)}');
                         }
                       },
                     ),
@@ -406,7 +412,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.72,
+                  childAspectRatio: 0.60,
                   crossAxisSpacing: 14,
                   mainAxisSpacing: 14,
                 ),

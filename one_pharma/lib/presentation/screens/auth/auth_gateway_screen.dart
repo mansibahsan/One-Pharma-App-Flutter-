@@ -46,6 +46,18 @@ class AuthGatewayScreen extends StatelessWidget {
                 textColor: AppColors.primary,
                 onPressed: () => context.push('/sign-in'),
               ),
+              const SizedBox(height: 10),
+              TextButton.icon(
+                onPressed: () => context.go('/home'),
+                icon: const Icon(Icons.bolt_rounded, size: 18, color: AppColors.primary),
+                label: Text(
+                  'Explore Live Demo (Skip Login)',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               const Spacer(flex: 1),
               Opacity(
                 opacity: 0.15,

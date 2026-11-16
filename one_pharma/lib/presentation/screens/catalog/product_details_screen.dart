@@ -5,8 +5,10 @@ import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
 import 'package:one_pharma/providers/cart_provider.dart';
 import 'package:one_pharma/providers/product_provider.dart';
+import 'package:one_pharma/providers/wishlist_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 import 'package:one_pharma/presentation/widgets/quantity_stepper.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
 
 class ProductDetailsScreen extends ConsumerStatefulWidget {
@@ -56,6 +58,9 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
 
     final totalPrice = product.price * _quantity;
     final images = product.allImages;
+    final isWishlisted = ref.watch(
+      wishlistProvider.select((list) => list.any((p) => p.id == product.id)),
+    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -69,6 +74,26 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
           style: AppTextStyles.h3.copyWith(fontSize: 18),
         ),
         actions: [
+          IconButton(
+            icon: Icon(
+              isWishlisted ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+              color: isWishlisted ? AppColors.primary : AppColors.textPrimary,
+            ),
+            onPressed: () {
+              ref.read(wishlistProvider.notifier).toggleWishlist(product);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    isWishlisted
+                        ? '${product.name} removed from Saved Medicines'
+                        : '${product.name} saved to Wishlist',
+                  ),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.shopping_bag_outlined, color: AppColors.textPrimary),
             onPressed: () => context.push('/cart'),
@@ -138,27 +163,15 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                                 },
                                 itemBuilder: (context, index) {
                                   return Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                                     child: Center(
-                                      child: Image.network(
-                                        images[index],
-                                        height: 160,
+                                      child: ProductImage(
+                                        imagePath: images[index],
+                                        height: 180,
+                                        width: 180,
                                         fit: BoxFit.contain,
-                                        loadingBuilder: (context, child, progress) {
-                                          if (progress == null) return child;
-                                          return const Center(
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-                                            ),
-                                          );
-                                        },
-                                        errorBuilder: (_, _, _) => const MedicineBottleArt(
-                                          size: 110,
-                                          primaryColor: AppColors.primary,
-                                          secondaryColor: Color(0xFFFFB800),
-                                          hasCapsule: true,
-                                        ),
+                                        borderRadius: BorderRadius.circular(18),
+                                        fallbackSize: 110,
                                       ),
                                     ),
                                   );
@@ -296,29 +309,15 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                                     ),
                                   ],
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
                                   child: Padding(
                                     padding: const EdgeInsets.all(3),
-                                    child: Image.network(
-                                      images[index],
+                                    child: ProductImage(
+                                      imagePath: images[index],
                                       fit: BoxFit.cover,
-                                      loadingBuilder: (context, child, progress) {
-                                        if (progress == null) return child;
-                                        return const Center(
-                                          child: SizedBox(
-                                            width: 14,
-                                            height: 14,
-                                            child: CircularProgressIndicator(strokeWidth: 1.5),
-                                          ),
-                                        );
-                                      },
-                                      errorBuilder: (_, _, _) => const Center(
-                                        child: Icon(Icons.medication_outlined, size: 22, color: AppColors.primary),
-                                      ),
+                                      borderRadius: BorderRadius.circular(12),
+                                      fallbackSize: 22,
                                     ),
                                   ),
-                                ),
                               ),
                             );
                           },
@@ -559,7 +558,7 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
 
             // Sticky Bottom Bar
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -570,64 +569,87 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
                   ),
                 ],
               ),
-              child: Row(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Total price
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Total',
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.textMuted,
-                        ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Total',
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.textMuted,
+                            ),
+                          ),
+                          Text(
+                            'USD \$${totalPrice.toStringAsFixed(2)}',
+                            style: AppTextStyles.priceLarge.copyWith(fontSize: 16),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'USD \$${totalPrice.toStringAsFixed(2)}',
-                        style: AppTextStyles.priceLarge.copyWith(fontSize: 15),
+                      QuantityStepper(
+                        quantity: _quantity,
+                        onChanged: (newQty) {
+                          setState(() => _quantity = newQty);
+                        },
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10),
-
-                  // Stepper
-                  QuantityStepper(
-                    quantity: _quantity,
-                    onChanged: (newQty) {
-                      setState(() => _quantity = newQty);
-                    },
-                  ),
-                  const SizedBox(width: 10),
-
-                  // Add To Cart Button
-                  Expanded(
-                    child: PrimaryButton(
-                      text: 'ADD TO CART',
-                      height: 46,
-                      fontSize: 13,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      onPressed: () {
-                        ref.read(cartProvider.notifier).addItem(
-                              product,
-                              strength: _selectedStrength,
-                              quantity: _quantity,
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: PrimaryButton(
+                          text: 'ADD TO CART',
+                          height: 46,
+                          fontSize: 13,
+                          backgroundColor: AppColors.primaryLight,
+                          textColor: AppColors.primary,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          onPressed: () {
+                            ref.read(cartProvider.notifier).addItem(
+                                  product,
+                                  strength: _selectedStrength,
+                                  quantity: _quantity,
+                                );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Added $_quantity x ${product.name} to Medicine Bag',
+                                ),
+                                action: SnackBarAction(
+                                  label: 'VIEW BAG',
+                                  textColor: Colors.white,
+                                  onPressed: () => context.push('/cart'),
+                                ),
+                                duration: const Duration(seconds: 2),
+                              ),
                             );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Added $_quantity x ${product.name} to Medicine Bag',
-                            ),
-                            action: SnackBarAction(
-                              label: 'VIEW BAG',
-                              textColor: Colors.white,
-                              onPressed: () => context.push('/cart'),
-                            ),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                    ),
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: PrimaryButton(
+                          text: 'ORDER NOW',
+                          height: 46,
+                          fontSize: 13,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          onPressed: () {
+                            ref.read(cartProvider.notifier).prepareOrderNow(
+                                  product,
+                                  strength: _selectedStrength,
+                                  quantity: _quantity,
+                                );
+                            context.push('/checkout');
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

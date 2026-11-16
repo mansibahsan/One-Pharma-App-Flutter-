@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class SearchHistoryNotifier extends StateNotifier<List<String>> {
   SearchHistoryNotifier()
       : super(const [
-          'Betulin Lux',
-          'Multivitamins',
-          'Allergy Relief',
-          'Ibuprofen',
-          'Azithromycin',
+          'Napa Extend',
+          'Hexisol',
+          'Normal Saline',
+          'Surgical Mask',
+          'Nitrile Gloves',
         ]);
 
   void addQuery(String query) {

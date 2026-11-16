@@ -7,7 +7,7 @@ import 'package:one_pharma/providers/product_provider.dart';
 import 'package:one_pharma/presentation/widgets/medicine_card.dart';
 import 'package:one_pharma/presentation/screens/catalog/filter_bottom_sheet.dart';
 
-class CategoryProductsScreen extends ConsumerWidget {
+class CategoryProductsScreen extends ConsumerStatefulWidget {
   final String categoryName;
 
   const CategoryProductsScreen({
@@ -16,18 +16,38 @@ class CategoryProductsScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CategoryProductsScreen> createState() =>
+      _CategoryProductsScreenState();
+}
+
+class _CategoryProductsScreenState extends ConsumerState<CategoryProductsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(productFilterProvider.notifier).setCategory(widget.categoryName);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final products = ref.watch(filteredProductsProvider);
+    final activeCategory = ref.watch(productFilterProvider).selectedCategory;
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primary),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            ref.read(productFilterProvider.notifier).setCategory('All');
+            context.pop();
+          },
         ),
         title: Text(
-          categoryName,
+          activeCategory == 'All' ? 'All Medical Items' : activeCategory,
           style: AppTextStyles.h3.copyWith(fontSize: 18),
         ),
         actions: [
@@ -68,6 +88,13 @@ class CategoryProductsScreen extends ConsumerWidget {
                     Text(
                       'Try resetting your filters or search term',
                       style: AppTextStyles.bodySmall,
+                    ),
+                    const SizedBox(height: 16),
+                    TextButton(
+                      onPressed: () {
+                        ref.read(productFilterProvider.notifier).resetFilters();
+                      },
+                      child: const Text('Reset Filters'),
                     ),
                   ],
                 ),

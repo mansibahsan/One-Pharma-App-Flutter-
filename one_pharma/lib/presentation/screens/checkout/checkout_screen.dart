@@ -9,7 +9,7 @@ import 'package:one_pharma/providers/auth_provider.dart';
 import 'package:one_pharma/providers/cart_provider.dart';
 import 'package:one_pharma/providers/order_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
-import 'package:one_pharma/presentation/widgets/medicine_bottle_art.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 import 'payment_bottom_sheet.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
@@ -383,31 +383,15 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: ClipRRect(
+                              child: ProductImage(
+                                imagePath: item.product.imageUrl,
+                                width: 44,
+                                height: 44,
                                 borderRadius: BorderRadius.circular(10),
-                                child: item.product.imageUrl != null && item.product.imageUrl!.isNotEmpty
-                                    ? Image.network(
-                                        item.product.imageUrl!,
-                                        width: 44,
-                                        height: 44,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (_, _, _) => Center(
-                                          child: MedicineBottleArt(
-                                            size: 32,
-                                            primaryColor: item.product.isPrescriptionRequired
-                                                ? AppColors.primary
-                                                : const Color(0xFF2E90FA),
-                                          ),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: MedicineBottleArt(
-                                          size: 32,
-                                          primaryColor: item.product.isPrescriptionRequired
-                                              ? AppColors.primary
-                                              : const Color(0xFF2E90FA),
-                                        ),
-                                      ),
+                                fallbackColor: item.product.isPrescriptionRequired
+                                    ? AppColors.primary
+                                    : const Color(0xFF2E90FA),
+                                fallbackSize: 32,
                               ),
                             ),
                             const SizedBox(width: 12),

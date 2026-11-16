@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
+import 'package:one_pharma/presentation/screens/shell/main_shell_screen.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 
-class EmptyCartView extends StatelessWidget {
+class EmptyCartView extends ConsumerWidget {
   const EmptyCartView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36),
@@ -72,7 +74,12 @@ class EmptyCartView extends StatelessWidget {
             PrimaryButton(
               text: 'EXPLORE MEDICINES',
               width: 220,
-              onPressed: () => context.go('/home'),
+              onPressed: () {
+                ref.read(mainShellTabProvider.notifier).state = 0;
+                if (GoRouter.maybeOf(context) != null) {
+                  context.go('/home');
+                }
+              },
             ),
           ],
         ),

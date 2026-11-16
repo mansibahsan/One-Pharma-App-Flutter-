@@ -48,7 +48,7 @@ class CustomDrawer extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user?.name ?? 'Geelus Deen',
+                        user?.name ?? 'Hera Rahman',
                         style: AppTextStyles.h3.copyWith(
                           color: Colors.white,
                           fontSize: 18,
@@ -58,7 +58,7 @@ class CustomDrawer extends ConsumerWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        user?.email ?? 'demodesign@gmail.com',
+                        user?.email ?? 'hera.rahman@onepharma.demo',
                         style: AppTextStyles.bodySmall.copyWith(
                           color: Colors.white.withValues(alpha: 0.85),
                           fontSize: 12,

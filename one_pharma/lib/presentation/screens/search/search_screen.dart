@@ -7,6 +7,7 @@ import 'package:one_pharma/data/mock/mock_data.dart';
 import 'package:one_pharma/data/models/product_model.dart';
 import 'package:one_pharma/providers/search_history_provider.dart';
 import 'package:one_pharma/providers/cart_provider.dart';
+import 'package:one_pharma/presentation/widgets/product_image.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -104,7 +105,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Listening... Say medicine name (e.g. Betulin Lux)'),
+                          content: Text('Listening... Say medicine name (e.g. Napa Extend, Hexisol)'),
                           duration: Duration(seconds: 2),
                           behavior: SnackBarBehavior.floating,
                         ),
@@ -189,7 +190,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 side: BorderSide(color: AppColors.primary.withValues(alpha: 0.2)),
               ),
               onPressed: () {
-                context.push('/category/${cat.name}');
+                context.push('/category/${Uri.encodeComponent(cat.name)}');
               },
             );
           }).toList(),
@@ -280,17 +281,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppColors.borderSubtle),
               ),
-              child: ClipRRect(
+              child: ProductImage(
+                imagePath: product.imageUrl,
+                width: 56,
+                height: 56,
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  (product.imageUrl ?? ''),
-                  fit: BoxFit.cover,
-                  errorBuilder: (ctx, err, st) => const Icon(
-                    Icons.medication_rounded,
-                    color: AppColors.primary,
-                    size: 28,
-                  ),
-                ),
+                fallbackSize: 32,
               ),
             ),
             const SizedBox(width: 14),
