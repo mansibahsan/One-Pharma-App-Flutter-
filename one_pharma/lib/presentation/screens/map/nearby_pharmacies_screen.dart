@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
@@ -22,7 +22,7 @@ class _NearbyPharmaciesScreenState extends State<NearbyPharmaciesScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Near By Pharmacies',
+          'Nearby Pharmacies',
           style: AppTextStyles.h3.copyWith(fontSize: 18),
         ),
       ),
@@ -147,7 +147,7 @@ class _NearbyPharmaciesScreenState extends State<NearbyPharmaciesScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                     child: Text(
-                      'Your Near By',
+                      'Partner Pharmacies Near You',
                       style: AppTextStyles.h3.copyWith(
                         fontSize: 15,
                         backgroundColor: Colors.white.withValues(alpha: 0.8),

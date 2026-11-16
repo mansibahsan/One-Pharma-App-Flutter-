@@ -107,39 +107,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 isLoading: _isLoading,
                 onPressed: _handleSignUp,
               ),
-              const SizedBox(height: 32),
-              Center(
-                child: Text(
-                  'or login with',
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textMuted,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSocialButton(
-                    icon: Icons.g_mobiledata_rounded,
-                    color: const Color(0xFFEA4335),
-                    onTap: () => context.push('/otp-verification'),
-                  ),
-                  const SizedBox(width: 16),
-                  _buildSocialButton(
-                    icon: Icons.facebook,
-                    color: const Color(0xFF1877F2),
-                    onTap: () => context.push('/otp-verification'),
-                  ),
-                  const SizedBox(width: 16),
-                  _buildSocialButton(
-                    icon: Icons.alternate_email,
-                    color: const Color(0xFF1DA1F2),
-                    onTap: () => context.push('/otp-verification'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 28),
               Text(
                 'By signing up you agree to our Privacy\nPolicy and Terms.',
                 textAlign: TextAlign.center,
@@ -149,8 +117,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
+                alignment: WrapAlignment.center,
                 children: [
                   Text(
                     'Already have an account? ',
@@ -174,34 +142,6 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildSocialButton({
-    required IconData icon,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          border: Border.all(color: AppColors.border),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.03),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Icon(icon, color: color, size: 24),
       ),
     );
   }

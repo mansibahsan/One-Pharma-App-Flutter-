@@ -18,10 +18,25 @@ class MockData {
   static const UserModel currentUser = UserModel(
     id: 'user_1',
     name: 'Hera Rahman',
-    email: 'hera.rahman@onepharma.demo',
+    email: 'hera.rahman@onepharma.com',
     phone: '+880 1711-896356',
     address: 'House #28, Road #30, Sector #10\nUttara, Dhaka-1230',
     role: 'Verified Patient • Dhaka, BD',
+    userRole: UserRole.patient,
+  );
+
+  static const UserModel currentDoctor = UserModel(
+    id: 'doc_1',
+    name: 'Dr. Tanjila Ahmed, PharmD',
+    email: 'dr.tanjila@onepharma.com',
+    phone: '+880 1711-554433',
+    address: 'Evercare Hospital, Bashundhara R/A, Dhaka',
+    role: 'Clinical Pharmacist Specialist • BMDC Verified',
+    userRole: UserRole.doctor,
+    specialty: 'Clinical Pharmacist & Diabetes Care',
+    licenseNumber: 'REG-DH-849204',
+    hospital: 'Evercare Hospital Dhaka',
+    avatarUrl: 'assets/images/hero/hero_teleconsult.jpg',
   );
 
   static const List<CategoryModel> categories = [
@@ -723,8 +738,26 @@ class MockData {
 
   static List<PrescriptionModel> get initialPrescriptions => [
     PrescriptionModel(
+      id: 'rx_pending_1',
+      title: 'Uploaded Slip • Fever & Cough',
+      patientName: 'Hera Rahman',
+      doctorName: 'Pending Doctor Audit',
+      doctorSpecialty: 'Awaiting Clinical Verification',
+      hospital: 'Patient Uploaded Slip',
+      issueDate: DateTime.now().subtract(const Duration(hours: 2)),
+      expiryDate: DateTime.now().add(const Duration(days: 30)),
+      status: PrescriptionStatus.pending,
+      fileUrl: 'assets/images/products/paracetamol_tablets.jpg',
+      linkedMedicines: [
+        products[0], // Napa Extend
+        products[1], // Tusca Plus Cough Syrup
+      ],
+      notes: 'Patient requested verification for 5-day fever and dry cough regimen.',
+    ),
+    PrescriptionModel(
       id: 'rx_1',
       title: 'Chest & Respiratory Care',
+      patientName: 'Hera Rahman',
       doctorName: 'Dr. Shahriar Kabir, MD',
       doctorSpecialty: 'Pulmonologist & Chest Specialist',
       hospital: 'Evercare Hospital Dhaka',

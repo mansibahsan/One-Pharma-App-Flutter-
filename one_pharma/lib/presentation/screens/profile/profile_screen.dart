@@ -11,7 +11,6 @@ import 'package:one_pharma/providers/wishlist_provider.dart';
 import 'package:one_pharma/providers/address_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 import 'package:one_pharma/presentation/widgets/app_text_field.dart';
-import 'package:one_pharma/presentation/widgets/demo_mode_sheet.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -33,7 +32,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final user = ref.read(authProvider).user;
     _nameController = TextEditingController(text: user?.name ?? 'Hera Rahman');
     _phoneController = TextEditingController(text: user?.phone ?? '+880 1711-896356');
-    _emailController = TextEditingController(text: user?.email ?? 'hera.rahman@onepharma.demo');
+    _emailController = TextEditingController(text: user?.email ?? 'hera.rahman@onepharma.com');
     _addressController = TextEditingController(
       text: user?.address ?? 'House # 60 , Sector #12, Road# 20\nDhaka-1230',
     );
@@ -91,19 +90,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           'My Profile & Hub',
           style: AppTextStyles.h3.copyWith(fontSize: 18),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.auto_awesome_rounded, color: Color(0xFF7C3AED)),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (ctx) => const DemoModeSheet(),
-              );
-            },
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -189,84 +175,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   const SizedBox(width: 8),
                   _buildStatTile('Addresses', '$addressCount', Icons.location_on_outlined, () => context.push('/addresses')),
                 ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Demo Switcher Banner
-              Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF6D28D9), Color(0xFF8B5CF6)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF7C3AED).withValues(alpha: 0.25),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (ctx) => const DemoModeSheet(),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 22),
-                          const SizedBox(width: 12),
-                          const Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Interactive Demo Persona',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  'Switch between New Patient, Regular, Chronic Care',
-                                  style: TextStyle(color: Colors.white70, fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.25),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Text(
-                              'SWITCH',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ),
 
               const SizedBox(height: 24),

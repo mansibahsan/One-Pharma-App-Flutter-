@@ -33,8 +33,12 @@ class _PrescriptionVaultScreenState extends ConsumerState<PrescriptionVaultScree
   @override
   Widget build(BuildContext context) {
     final prescriptions = ref.watch(prescriptionProvider);
-    final activeList = prescriptions.where((p) => p.isValid).toList();
-    final pastList = prescriptions.where((p) => !p.isValid).toList();
+    final activeList = prescriptions
+        .where((p) => p.isValid || p.status == PrescriptionStatus.pending)
+        .toList();
+    final pastList = prescriptions
+        .where((p) => !p.isValid && p.status != PrescriptionStatus.pending)
+        .toList();
 
     return Scaffold(
       backgroundColor: Colors.white,

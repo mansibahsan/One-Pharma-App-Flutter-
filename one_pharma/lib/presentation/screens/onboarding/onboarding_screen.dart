@@ -17,21 +17,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingItem> _slides = const [
     OnboardingItem(
-      title: 'View & Buy Medicine\nOnline',
+      title: 'Order Authentic Medicines\nWith Confidence',
       subtitle:
-          'Browse thousands of verified pharmaceuticals and healthcare products with doorstep delivery.',
+          'Browse DGDA-approved pharmaceuticals, surgical supplies, and healthcare essentials with guaranteed authenticity.',
       iconIndex: 0,
     ),
     OnboardingItem(
-      title: 'Save your time\nwith us',
+      title: 'Instant Prescription\nVerification & Care',
       subtitle:
-          'Upload your doctor\'s prescription and let our certified pharmacists handle the rest effortlessly.',
+          'Upload your doctor\'s prescription or consult licensed clinicians online for verified digital e-prescriptions.',
       iconIndex: 1,
     ),
     OnboardingItem(
-      title: 'We provide Home\nDelivery',
+      title: 'Express Cold-Chain\nDoorstep Delivery',
       subtitle:
-          'Fast, temperature-controlled delivery directly to your home with real-time live GPS tracking.',
+          'Fast, temperature-controlled delivery directly to your home or clinic with real-time order tracking.',
       iconIndex: 2,
     ),
   ];

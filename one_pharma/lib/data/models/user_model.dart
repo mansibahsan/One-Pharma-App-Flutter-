@@ -1,3 +1,17 @@
+enum UserRole {
+  patient,
+  doctor;
+
+  String get label {
+    switch (this) {
+      case UserRole.patient:
+        return 'Patient';
+      case UserRole.doctor:
+        return 'Doctor';
+    }
+  }
+}
+
 class UserModel {
   final String id;
   final String name;
@@ -6,6 +20,10 @@ class UserModel {
   final String address;
   final String role;
   final String avatarUrl;
+  final UserRole userRole;
+  final String specialty;
+  final String licenseNumber;
+  final String hospital;
 
   const UserModel({
     required this.id,
@@ -13,9 +31,15 @@ class UserModel {
     required this.email,
     required this.phone,
     required this.address,
-    this.role = 'Pro User, Bangladesh',
+    this.role = 'Verified Patient • Dhaka, BD',
     this.avatarUrl = '',
+    this.userRole = UserRole.patient,
+    this.specialty = '',
+    this.licenseNumber = '',
+    this.hospital = '',
   });
+
+  bool get isDoctor => userRole == UserRole.doctor;
 
   UserModel copyWith({
     String? id,
@@ -25,6 +49,10 @@ class UserModel {
     String? address,
     String? role,
     String? avatarUrl,
+    UserRole? userRole,
+    String? specialty,
+    String? licenseNumber,
+    String? hospital,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -34,6 +62,10 @@ class UserModel {
       address: address ?? this.address,
       role: role ?? this.role,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      userRole: userRole ?? this.userRole,
+      specialty: specialty ?? this.specialty,
+      licenseNumber: licenseNumber ?? this.licenseNumber,
+      hospital: hospital ?? this.hospital,
     );
   }
 }

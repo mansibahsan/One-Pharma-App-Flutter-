@@ -53,7 +53,7 @@ class EmptyCartView extends ConsumerWidget {
             const SizedBox(height: 32),
 
             Text(
-              'You haven\'t added anything\nto order list',
+              'Your Medicine Bag is Empty',
               textAlign: TextAlign.center,
               style: AppTextStyles.h3.copyWith(
                 fontSize: 18,
@@ -63,7 +63,7 @@ class EmptyCartView extends ConsumerWidget {
             const SizedBox(height: 12),
 
             Text(
-              'Explore our catalog to find prescription and OTC medications for quick delivery.',
+              'Browse our verified catalog of prescription and OTC healthcare products to get started.',
               textAlign: TextAlign.center,
               style: AppTextStyles.bodySmall.copyWith(
                 color: AppColors.textSecondary,
@@ -72,7 +72,7 @@ class EmptyCartView extends ConsumerWidget {
             const SizedBox(height: 32),
 
             PrimaryButton(
-              text: 'EXPLORE MEDICINES',
+              text: 'BROWSE MEDICINES',
               width: 220,
               onPressed: () {
                 ref.read(mainShellTabProvider.notifier).state = 0;

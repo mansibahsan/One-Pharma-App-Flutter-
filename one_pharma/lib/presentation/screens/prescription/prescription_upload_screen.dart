@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_pharma/core/theme/app_colors.dart';
 import 'package:one_pharma/core/theme/app_text_styles.dart';
+import 'package:one_pharma/data/mock/mock_data.dart';
+import 'package:one_pharma/data/models/prescription_model.dart';
 import 'package:one_pharma/providers/auth_provider.dart';
+import 'package:one_pharma/providers/prescription_provider.dart';
 import 'package:one_pharma/presentation/widgets/primary_button.dart';
 
 class PrescriptionUploadScreen extends ConsumerStatefulWidget {
@@ -36,8 +39,28 @@ class _PrescriptionUploadScreenState
     }
 
     setState(() => _isUploading = true);
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 800));
     setState(() => _isUploading = false);
+
+    final user = ref.read(authProvider).user;
+    final newRx = PrescriptionModel(
+      id: 'rx_${DateTime.now().millisecondsSinceEpoch}',
+      title: 'Uploaded Slip • ${_fileName ?? "Rx Document"}',
+      patientName: user?.name ?? 'Hera Rahman',
+      doctorName: 'Pending Doctor Audit',
+      doctorSpecialty: 'Awaiting Clinical Verification',
+      hospital: 'Patient Uploaded Slip',
+      issueDate: DateTime.now(),
+      expiryDate: DateTime.now().add(const Duration(days: 30)),
+      status: PrescriptionStatus.pending,
+      fileUrl: 'assets/images/products/antibiotic_tablets.jpg',
+      linkedMedicines: [
+        MockData.products[7], // Zimax 500mg
+        MockData.products[0], // Napa Extend
+      ],
+      notes: 'Uploaded by patient for doctor verification and order approval.',
+    );
+    ref.read(prescriptionProvider.notifier).addPrescription(newRx);
 
     if (mounted) {
       showDialog(
@@ -48,13 +71,20 @@ class _PrescriptionUploadScreenState
             children: [
               Icon(Icons.check_circle_rounded, color: AppColors.success),
               SizedBox(width: 8),
-              Text('Prescription Uploaded'),
+              Expanded(child: Text('Sent for Doctor Review')),
             ],
           ),
           content: const Text(
-            'Our certified pharmacist is examining your prescription slip. We will prepare your medicine cart shortly and notify you.',
+            'Your prescription slip has been added to the Doctor Review Queue. Once verified by a clinician, it will appear as Verified in your Prescription Vault.',
           ),
           actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                context.pushReplacement('/prescriptions');
+              },
+              child: const Text('View Vault'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(ctx).pop();

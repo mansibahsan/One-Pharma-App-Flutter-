@@ -85,7 +85,7 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
                 ),
                 Expanded(
                   child: Text(
-                    'Filters By',
+                    'Filter & Sort',
                     style: AppTextStyles.h3.copyWith(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
@@ -193,9 +193,9 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
                 ),
                 const SizedBox(height: 24),
 
-                // Mg / Strength
+                // Dosage / Pack Size
                 Text(
-                  'Mg',
+                  'Dosage & Pack Size',
                   style: AppTextStyles.h3.copyWith(fontSize: 15),
                 ),
                 const SizedBox(height: 12),

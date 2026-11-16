@@ -15,6 +15,9 @@ class AuthState {
     this.error,
   });
 
+  UserRole get activeRole => user?.userRole ?? UserRole.patient;
+  bool get isDoctor => activeRole == UserRole.doctor;
+
   AuthState copyWith({
     UserModel? user,
     bool? isAuthenticated,
@@ -33,28 +36,64 @@ class AuthState {
 class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier() : super(const AuthState(user: MockData.currentUser));
 
-  Future<void> signIn(String email, String password) async {
+  Future<void> signIn(
+    String email,
+    String password, {
+    UserRole role = UserRole.patient,
+  }) async {
     state = state.copyWith(isLoading: true, error: null);
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 500));
+    final baseUser =
+        role == UserRole.doctor ? MockData.currentDoctor : MockData.currentUser;
     state = state.copyWith(
       isLoading: false,
       isAuthenticated: true,
-      user: MockData.currentUser.copyWith(email: email),
+      user: baseUser.copyWith(email: email.isNotEmpty ? email : baseUser.email),
     );
   }
 
-  Future<void> signUp(String name, String email, String password) async {
+  void signInAsPatient() {
+    state = const AuthState(
+      isAuthenticated: true,
+      isLoading: false,
+      user: MockData.currentUser,
+    );
+  }
+
+  void signInAsDoctor() {
+    state = const AuthState(
+      isAuthenticated: true,
+      isLoading: false,
+      user: MockData.currentDoctor,
+    );
+  }
+
+  void switchRole(UserRole role) {
+    if (role == UserRole.doctor) {
+      signInAsDoctor();
+    } else {
+      signInAsPatient();
+    }
+  }
+
+  Future<void> signUp(
+    String name,
+    String email,
+    String password, {
+    UserRole role = UserRole.patient,
+  }) async {
     state = state.copyWith(isLoading: true, error: null);
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 500));
+    final baseUser =
+        role == UserRole.doctor ? MockData.currentDoctor : MockData.currentUser;
     state = state.copyWith(
       isLoading: false,
       isAuthenticated: true,
-      user: UserModel(
-        id: 'user_new',
+      user: baseUser.copyWith(
+        id: 'user_${DateTime.now().millisecondsSinceEpoch}',
         name: name,
         email: email,
-        phone: '0569 - 8963 - 5632',
-        address: 'House # 60 , Sector #12, Road# 20\nDhaka-1230',
+        userRole: role,
       ),
     );
   }

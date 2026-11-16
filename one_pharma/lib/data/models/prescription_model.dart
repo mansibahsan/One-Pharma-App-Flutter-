@@ -20,6 +20,7 @@ enum PrescriptionStatus {
 class PrescriptionModel {
   final String id;
   final String title;
+  final String patientName;
   final String doctorName;
   final String doctorSpecialty;
   final String hospital;
@@ -33,6 +34,7 @@ class PrescriptionModel {
   const PrescriptionModel({
     required this.id,
     required this.title,
+    this.patientName = 'Hera Rahman',
     required this.doctorName,
     required this.doctorSpecialty,
     required this.hospital,
@@ -46,4 +48,34 @@ class PrescriptionModel {
 
   bool get isValid =>
       status == PrescriptionStatus.verified && expiryDate.isAfter(DateTime.now());
+
+  PrescriptionModel copyWith({
+    String? id,
+    String? title,
+    String? patientName,
+    String? doctorName,
+    String? doctorSpecialty,
+    String? hospital,
+    DateTime? issueDate,
+    DateTime? expiryDate,
+    PrescriptionStatus? status,
+    String? fileUrl,
+    List<ProductModel>? linkedMedicines,
+    String? notes,
+  }) {
+    return PrescriptionModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      patientName: patientName ?? this.patientName,
+      doctorName: doctorName ?? this.doctorName,
+      doctorSpecialty: doctorSpecialty ?? this.doctorSpecialty,
+      hospital: hospital ?? this.hospital,
+      issueDate: issueDate ?? this.issueDate,
+      expiryDate: expiryDate ?? this.expiryDate,
+      status: status ?? this.status,
+      fileUrl: fileUrl ?? this.fileUrl,
+      linkedMedicines: linkedMedicines ?? this.linkedMedicines,
+      notes: notes ?? this.notes,
+    );
+  }
 }

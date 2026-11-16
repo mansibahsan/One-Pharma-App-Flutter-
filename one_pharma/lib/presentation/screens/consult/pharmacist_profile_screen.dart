@@ -175,7 +175,13 @@ class _PharmacistProfileScreenState extends ConsumerState<PharmacistProfileScree
             height: 52,
             child: ElevatedButton(
               onPressed: () {
-                ref.read(appointmentsProvider.notifier).book(doc, _selectedDay, _selectedSlot);
+                final modes = ['Video Call', 'Audio Call', 'Live Chat'];
+                ref.read(appointmentsProvider.notifier).book(
+                      doc,
+                      _selectedDay,
+                      _selectedSlot,
+                      mode: modes[_consultationTypeIndex],
+                    );
                 showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
@@ -184,13 +190,20 @@ class _PharmacistProfileScreenState extends ConsumerState<PharmacistProfileScree
                       children: [
                         Icon(Icons.check_circle_rounded, color: Color(0xFF16A34A)),
                         SizedBox(width: 8),
-                        Text('Session Booked!'),
+                        Expanded(child: Text('Session Booked!')),
                       ],
                     ),
                     content: Text(
-                      'Your appointment with ${doc.name} is confirmed for $_selectedDay at $_selectedSlot. You will receive a meeting link via SMS and notifications.',
+                      'Your ${modes[_consultationTypeIndex]} appointment with ${doc.name} is confirmed for $_selectedDay at $_selectedSlot. It is now visible in the Doctor Portal queue.',
                     ),
                     actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                          context.push('/teleconsult-call');
+                        },
+                        child: const Text('Preview Live Call'),
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(ctx).pop();

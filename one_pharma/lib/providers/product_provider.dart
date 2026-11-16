@@ -13,11 +13,11 @@ enum SortOption {
       case SortOption.popular:
         return 'Most Popular';
       case SortOption.costLowToHigh:
-        return 'Cost low to high';
+        return 'Price: Low to High';
       case SortOption.costHighToLow:
-        return 'Cost high to low';
+        return 'Price: High to Low';
       case SortOption.rating:
-        return 'Review';
+        return 'Highest Rated';
     }
   }
 }

@@ -7,7 +7,6 @@ import 'package:one_pharma/providers/auth_provider.dart';
 import 'package:one_pharma/providers/prescription_provider.dart';
 import 'package:one_pharma/providers/reminder_provider.dart';
 import 'package:one_pharma/providers/wishlist_provider.dart';
-import 'package:one_pharma/presentation/widgets/demo_mode_sheet.dart';
 
 class CustomDrawer extends ConsumerWidget {
   const CustomDrawer({super.key});
@@ -58,7 +57,7 @@ class CustomDrawer extends ConsumerWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        user?.email ?? 'hera.rahman@onepharma.demo',
+                        user?.email ?? 'hera.rahman@onepharma.com',
                         style: AppTextStyles.bodySmall.copyWith(
                           color: Colors.white.withValues(alpha: 0.85),
                           fontSize: 12,
@@ -70,87 +69,6 @@ class CustomDrawer extends ConsumerWidget {
                   ),
                 ),
               ],
-            ),
-          ),
-
-          // Demo Mode Banner Tile
-          Container(
-            margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF7C3AED), Color(0xFF9333EA)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(14),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF7C3AED).withValues(alpha: 0.25),
-                  blurRadius: 8,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(14),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (ctx) => const DemoModeSheet(),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 20),
-                      const SizedBox(width: 10),
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Demo Persona Switcher',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
-                            ),
-                            Text(
-                              'Switch customer scenarios live',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.25),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'PITCH',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
           ),
 

@@ -15,48 +15,53 @@ class AuthGatewayScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(flex: 2),
               Text(
-                'Start by creating an\naccount.',
+                'Welcome to 1 Pharma\nHealthcare Platform',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.h1.copyWith(
-                  fontSize: 28,
+                  fontSize: 26,
                   height: 1.3,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               Text(
-                'Access fast medicine delivery, prescription uploads, and authentic healthcare products anytime.',
+                'Connect patients with authentic medicines, verified prescriptions, and licensed doctors & pharmacists.',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.subtitle.copyWith(
-                  fontSize: 14,
+                  fontSize: 13.5,
                   color: AppColors.textSecondary,
                 ),
               ),
-              const Spacer(flex: 3),
+              const Spacer(flex: 2),
+              PrimaryButton(
+                text: 'LOGIN AS PATIENT',
+                width: double.infinity,
+                icon: const Icon(Icons.person_rounded, size: 18, color: Colors.white),
+                onPressed: () => context.push('/sign-in?role=patient'),
+              ),
+              const SizedBox(height: 12),
+              PrimaryButton(
+                text: 'LOGIN AS DOCTOR',
+                width: double.infinity,
+                backgroundColor: const Color(0xFF0D9488),
+                textColor: Colors.white,
+                icon: const Icon(
+                  Icons.medical_services_rounded,
+                  size: 18,
+                  color: Colors.white,
+                ),
+                onPressed: () => context.push('/sign-in?role=doctor'),
+              ),
+              const SizedBox(height: 12),
               PrimaryButton(
                 text: 'CREATE AN ACCOUNT',
-                onPressed: () => context.push('/sign-up'),
-              ),
-              const SizedBox(height: 14),
-              PrimaryButton(
-                text: 'SIGN IN',
+                width: double.infinity,
                 backgroundColor: AppColors.primaryLight,
                 textColor: AppColors.primary,
-                onPressed: () => context.push('/sign-in'),
-              ),
-              const SizedBox(height: 10),
-              TextButton.icon(
-                onPressed: () => context.go('/home'),
-                icon: const Icon(Icons.bolt_rounded, size: 18, color: AppColors.primary),
-                label: Text(
-                  'Explore Live Demo (Skip Login)',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                onPressed: () => context.push('/sign-up'),
               ),
               const Spacer(flex: 1),
               Opacity(

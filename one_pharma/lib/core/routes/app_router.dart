@@ -27,6 +27,10 @@ import 'package:one_pharma/presentation/screens/profile/profile_screen.dart';
 import 'package:one_pharma/presentation/screens/profile/review_screen.dart';
 import 'package:one_pharma/presentation/screens/notifications/notifications_screen.dart';
 import 'package:one_pharma/presentation/screens/support/support_chat_screen.dart';
+import 'package:one_pharma/presentation/screens/doctor/doctor_shell_screen.dart';
+import 'package:one_pharma/presentation/screens/doctor/write_prescription_screen.dart';
+import 'package:one_pharma/presentation/screens/consult/teleconsult_call_screen.dart';
+import 'package:one_pharma/data/models/user_model.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -45,7 +49,12 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/sign-in',
-      builder: (context, state) => const SignInScreen(),
+      builder: (context, state) {
+        final roleParam = state.uri.queryParameters['role'];
+        final initialRole =
+            roleParam == 'doctor' ? UserRole.doctor : UserRole.patient;
+        return SignInScreen(initialRole: initialRole);
+      },
     ),
     GoRoute(
       path: '/sign-up',
@@ -166,6 +175,21 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/support-chat',
       builder: (context, state) => const SupportChatScreen(),
+    ),
+    GoRoute(
+      path: '/doctor',
+      builder: (context, state) => const DoctorShellScreen(),
+    ),
+    GoRoute(
+      path: '/doctor/write-rx',
+      builder: (context, state) {
+        final patient = state.uri.queryParameters['patient'];
+        return WritePrescriptionScreen(initialPatientName: patient);
+      },
+    ),
+    GoRoute(
+      path: '/teleconsult-call',
+      builder: (context, state) => const TeleconsultCallScreen(),
     ),
   ],
 );
